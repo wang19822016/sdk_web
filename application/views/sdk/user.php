@@ -64,6 +64,7 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>name</th>
+                                    <th>密码</th>
                                     <th>Email</th>
                                     <th>创建时间</th>
                                 </tr>
@@ -73,6 +74,7 @@
                                 <tr>
                                     <td><?php echo $item->id; ?></td>
                                     <td><?php echo $item->name; ?></td>
+                                    <td><?php echo $item->password; ?></td>
                                     <td><?php echo $item->email; ?></td>
                                     <td><?php echo $item->create_time; ?></td>
                                 </tr>
@@ -83,6 +85,7 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>name</th>
+                                    <th>密码</th>
                                     <th>Email</th>
                                     <th>创建时间</th>
                                 </tr>
