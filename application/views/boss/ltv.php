@@ -93,7 +93,7 @@
                 <ul class="sidebar-menu">
                     <li class="header">MAIN NAVIGATION</li>
                     <li class="">
-                        <a href="<?php echo site_url('boss'); ?>">
+                        <a href="<?php echo site_url('boss/views/' . $appid . '/all'); ?>">
                             <i class="fa fa-th"></i>
                             <span>总览</span>
                             <span class="pull-right-container">
@@ -145,6 +145,21 @@
                                 <small class="label pull-right bg-green"></small>
                             </span>
                         </a>
+                    </li>
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-dashboard"></i>
+                            <span>付费</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li class=""><a href="<?php echo site_url('boss/views/' . $appid . '/pay2'); ?>"><i class="fa fa-circle-o"></i> 付费人数</a></li>
+                            <li class=""><a href="<?php echo site_url('boss/views/' . $appid . '/pay3'); ?>"><i class="fa fa-circle-o"></i> 付费率</a></li>
+                            <li class=""><a href="<?php echo site_url('boss/views/' . $appid . '/pay4'); ?>"><i class="fa fa-circle-o"></i> 付费人次</a></li>
+                            <li class=""><a href="<?php echo site_url('boss/views/' . $appid . '/pay5'); ?>"><i class="fa fa-circle-o"></i> 鲸鱼用户</a></li>
+                        </ul>
                     </li>
                     <li><a href="#"><i class="fa fa-book"></i> <span>Documentation</span></a></li>
                 </ul>
@@ -198,36 +213,36 @@
                                     <thead>
                                         <tr>
                                             <th>日期</th>
-                                            <th>前1</th>
-                                            <th>前2</th>
-                                            <th>前3</th>
-                                            <th>前4</th>
-                                            <th>前5</th>
-                                            <th>前6</th>
-                                            <th>前7</th>
-                                            <th>前8</th>
-                                            <th>前9</th>
-                                            <th>前10</th>
-                                            <th>前11</th>
-                                            <th>前12</th>
-                                            <th>前13</th>
-                                            <th>前14</th>
-                                            <th>前15</th>
-                                            <th>前16</th>
-                                            <th>前17</th>
-                                            <th>前18</th>
-                                            <th>前19</th>
-                                            <th>前20</th>
-                                            <th>前21</th>
-                                            <th>前22</th>
-                                            <th>前23</th>
-                                            <th>前24</th>
-                                            <th>前25</th>
-                                            <th>前26</th>
-                                            <th>前27</th>
-                                            <th>前28</th>
-                                            <th>前29</th>
-                                            <th>前30</th>
+                                            <th>L1</th>
+                                            <th>L2</th>
+                                            <th>L3</th>
+                                            <th>L4</th>
+                                            <th>L5</th>
+                                            <th>L6</th>
+                                            <th>L7</th>
+                                            <th>L8</th>
+                                            <th>L9</th>
+                                            <th>L10</th>
+                                            <th>L11</th>
+                                            <th>L12</th>
+                                            <th>L13</th>
+                                            <th>L14</th>
+                                            <th>L15</th>
+                                            <th>L16</th>
+                                            <th>L17</th>
+                                            <th>L18</th>
+                                            <th>L19</th>
+                                            <th>L20</th>
+                                            <th>L21</th>
+                                            <th>L22</th>
+                                            <th>L23</th>
+                                            <th>L24</th>
+                                            <th>L25</th>
+                                            <th>L26</th>
+                                            <th>L27</th>
+                                            <th>L28</th>
+                                            <th>L29</th>
+                                            <th>L30</th>
                                         </tr>
                                     </thead>
                                     <tbody id="table_body">
@@ -298,38 +313,47 @@
 
         function fillTableData(start, end) {
             showLoading();
-            $.post('<?php echo site_url("boss/ltv"); ?>',
-                {
+            $.ajax({
+                url : '<?php echo site_url("boss/ltv"); ?>',
+                timeout: 3000,
+                type: 'POST',
+                async: true,
+                data: {
                     'appid' : <?php echo $appid; ?>,
                     'begin' : start,
                     'end' : end
                 },
-                function(result) {
-                    hideLoading();
-                    if (result) {
-                        // 删除旧数据
-                        $("#table_body").empty();
+                dataType: 'text json',
+                success:function(result) {
+                    // 删除旧数据
+                    $("#table_body").empty();
 
-                        for (var key in result) {
-                            // 拼接新数据
-                            var line = '<tr>';
+                    for (var key in result) {
+                        // 拼接新数据
+                        var line = '<tr>';
+                        line += '<td>';
+                        line += key;
+                        line += '</td>';
+
+                        for (var i = 1; i < 31; i++) {
                             line += '<td>';
-                            line += key;
+                            line += result[key][String(i)];
                             line += '</td>';
-
-                            for (var i = 1; i < 31; i++) {
-                                line += '<td>';
-                                line += result[key][String(i)];
-                                line += '</td>';
-                            }
-
-                            line += '</tr>';
-                            $("#table_body").append(line);
                         }
 
+                        line += '</tr>';
+                        $("#table_body").append(line);
                     }
+                },
+                complete: function(XHR, status) {
+                    if (status == 'timeout') {
+                    }
+
+                    hideLoading();
+                },
+                error: function(XHR) {
                 }
-            );
+            });
         }
 
         $(document).ready(

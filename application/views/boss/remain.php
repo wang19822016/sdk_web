@@ -93,7 +93,7 @@
                 <ul class="sidebar-menu">
                     <li class="header">MAIN NAVIGATION</li>
                     <li class="">
-                        <a href="<?php echo site_url('boss'); ?>">
+                        <a href="<?php echo site_url('boss/views/' . $appid . '/all'); ?>">
                             <i class="fa fa-th"></i>
                             <span>总览</span>
                             <span class="pull-right-container">
@@ -145,6 +145,21 @@
                                 <small class="label pull-right bg-green"></small>
                             </span>
                         </a>
+                    </li>
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-dashboard"></i>
+                            <span>付费</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li class=""><a href="<?php echo site_url('boss/views/' . $appid . '/pay2'); ?>"><i class="fa fa-circle-o"></i> 付费人数</a></li>
+                            <li class=""><a href="<?php echo site_url('boss/views/' . $appid . '/pay3'); ?>"><i class="fa fa-circle-o"></i> 付费率</a></li>
+                            <li class=""><a href="<?php echo site_url('boss/views/' . $appid . '/pay4'); ?>"><i class="fa fa-circle-o"></i> 付费人次</a></li>
+                            <li class=""><a href="<?php echo site_url('boss/views/' . $appid . '/pay5'); ?>"><i class="fa fa-circle-o"></i> 鲸鱼用户</a></li>
+                        </ul>
                     </li>
                     <li><a href="#"><i class="fa fa-book"></i> <span>Documentation</span></a></li>
                 </ul>
@@ -221,6 +236,7 @@
                                             <th>22留</th>
                                             <th>23留</th>
                                             <th>24留</th>
+                                            <th>25留</th>
                                             <th>26留</th>
                                             <th>27留</th>
                                             <th>28留</th>
@@ -296,38 +312,47 @@
 
         function fillTableData(start, end) {
             showLoading();
-            $.post('<?php echo site_url("boss/remain"); ?>',
-                {
+            $.ajax({
+                url : '<?php echo site_url("boss/remain"); ?>',
+                timeout: 3000,
+                type: 'POST',
+                async: true,
+                data: {
                     'appid' : <?php echo $appid; ?>,
                     'begin' : start,
                     'end' : end
                 },
-                function(result) {
-                    hideLoading();
-                    if (result) {
-                        // 删除旧数据
-                        $("#table_body").empty();
+                dataType: 'text json',
+                success:function(result) {
+                    // 删除旧数据
+                    $("#table_body").empty();
 
-                        for (var key in result) {
-                            // 拼接新数据
-                            var line = '<tr>';
+                    for (var key in result) {
+                        // 拼接新数据
+                        var line = '<tr>';
+                        line += '<td>';
+                        line += key;
+                        line += '</td>';
+
+                        for (var i = 2; i < 31; i++) {
                             line += '<td>';
-                            line += key;
+                            line += result[key][String(i)];
                             line += '</td>';
-
-                            for (var i = 2; i < 31; i++) {
-                                line += '<td>';
-                                line += result[key][String(i)];
-                                line += '</td>';
-                            }
-
-                            line += '</tr>';
-                            $("#table_body").append(line);
                         }
 
+                        line += '</tr>';
+                        $("#table_body").append(line);
                     }
+                },
+                complete: function(XHR, status) {
+                    if (status == 'timeout') {
+                    }
+
+                    hideLoading();
+                },
+                error: function(XHR) {
                 }
-            );
+            });
         }
 
         $(document).ready(

@@ -9,7 +9,7 @@ class Boss extends CI_Controller {
 
     public function index() {
         $appId = $this->input->post('id');
-        $appId = 3;
+        //$appId = 3;
 
         $this->views($appId, "all");
     }
@@ -106,6 +106,32 @@ class Boss extends CI_Controller {
         $this->output
             ->set_content_type('application/json')
             ->set_output(json_encode($this->getRemain($appId, $begin, $end)));
+    }
+
+    public function pay() {
+        $appId = $this->input->post('appid');
+        $begin = $this->input->post('begin');
+        $end = $this->input->post('end');
+        if (!is_numeric($appId)) {
+            echo "appid错误";
+            return;
+        }
+
+        $this->output
+            ->set_content_type('application/json')
+            ->set_output(json_encode($this->getPay($appId, $begin, $end)));
+    }
+
+    public function payTop() {
+        $appId = $this->input->post('appid');
+        if (!is_numeric($appId)) {
+            echo "appid错误";
+            return;
+        }
+
+        $this->output
+            ->set_content_type('application/json')
+            ->set_output(json_encode($this->getPayTop($appId)));
     }
 
     public function getAll($appId, $begin, $end) {
@@ -261,6 +287,44 @@ class Boss extends CI_Controller {
 
         foreach ($rc as $row) {
             $data[$row->date][$row->remainDays] = $row->remainValue;
+        }
+
+        return $data;
+    }
+
+    public function getPay($appId, $begin, $end) {
+        $this->load->model('boss/BI', 'bi');
+        $rc = $this->bi->getPay($appId, $begin, $end);
+
+        $begin_date = date_create($begin);
+        $end_date = date_create($end);
+
+        $data = array();
+        while ($begin_date <= $end_date) {
+            $data[date_format($begin_date, "Y-m-d")] = array();
+            for ($i=1; $i < 31; $i++) {
+                $data[date_format($begin_date, "Y-m-d")][$i] = array("payDays" => '-', 'dnu' => '-', 'payNum' => '-', 'payTimes' => '-', 'payRate' => '-');
+            }
+            date_add($begin_date, date_interval_create_from_date_string("1 days"));
+        }
+
+        foreach ($rc as $row) {
+            $data[$row->date][$row->payDays] = $row;
+        }
+
+        return $data;
+    }
+
+    public function getPayTop($appId) {
+        $this->load->model('boss/BI', 'bi');
+        $rc = $this->bi->getPayTop($appId);
+
+        //$data = array("uin" => '-', "channel" => '-', 'money' => '-', 'reg' => '-', 'beginpay' => '-', 'endpay' => '-', 'online' => '-');
+        $data = array();
+        if ($rc && count($rc) > 0) {
+            foreach ($rc as $row) {
+                array_push($data, $row);
+            }
         }
 
         return $data;

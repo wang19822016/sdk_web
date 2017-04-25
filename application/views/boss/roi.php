@@ -93,7 +93,7 @@
                 <ul class="sidebar-menu">
                     <li class="header">MAIN NAVIGATION</li>
                     <li class="">
-                        <a href="<?php echo site_url('boss'); ?>">
+                        <a href="<?php echo site_url('boss/views/' . $appid . '/all'); ?>">
                             <i class="fa fa-th"></i>
                             <span>总览</span>
                             <span class="pull-right-container">
@@ -145,6 +145,21 @@
                                 <small class="label pull-right bg-green"></small>
                             </span>
                         </a>
+                    </li>
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-dashboard"></i>
+                            <span>付费</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li class=""><a href="<?php echo site_url('boss/views/' . $appid . '/pay2'); ?>"><i class="fa fa-circle-o"></i> 付费人数</a></li>
+                            <li class=""><a href="<?php echo site_url('boss/views/' . $appid . '/pay3'); ?>"><i class="fa fa-circle-o"></i> 付费率</a></li>
+                            <li class=""><a href="<?php echo site_url('boss/views/' . $appid . '/pay4'); ?>"><i class="fa fa-circle-o"></i> 付费人次</a></li>
+                            <li class=""><a href="<?php echo site_url('boss/views/' . $appid . '/pay5'); ?>"><i class="fa fa-circle-o"></i> 鲸鱼用户</a></li>
+                        </ul>
                     </li>
                     <li><a href="#"><i class="fa fa-book"></i> <span>Documentation</span></a></li>
                 </ul>
@@ -199,36 +214,36 @@
                                         <tr>
                                             <th>日期</th>
                                             <th>成本</th>
-                                            <th>前1</th>
-                                            <th>前2</th>
-                                            <th>前3</th>
-                                            <th>前4</th>
-                                            <th>前5</th>
-                                            <th>前6</th>
-                                            <th>前7</th>
-                                            <th>前8</th>
-                                            <th>前9</th>
-                                            <th>前10</th>
-                                            <th>前11</th>
-                                            <th>前12</th>
-                                            <th>前13</th>
-                                            <th>前14</th>
-                                            <th>前15</th>
-                                            <th>前16</th>
-                                            <th>前17</th>
-                                            <th>前18</th>
-                                            <th>前19</th>
-                                            <th>前20</th>
-                                            <th>前21</th>
-                                            <th>前22</th>
-                                            <th>前23</th>
-                                            <th>前24</th>
-                                            <th>前25</th>
-                                            <th>前26</th>
-                                            <th>前27</th>
-                                            <th>前28</th>
-                                            <th>前29</th>
-                                            <th>前30</th>
+                                            <th>R1</th>
+                                            <th>R2</th>
+                                            <th>R3</th>
+                                            <th>R4</th>
+                                            <th>R5</th>
+                                            <th>R6</th>
+                                            <th>R7</th>
+                                            <th>R8</th>
+                                            <th>R9</th>
+                                            <th>R10</th>
+                                            <th>R11</th>
+                                            <th>R12</th>
+                                            <th>R13</th>
+                                            <th>R14</th>
+                                            <th>R15</th>
+                                            <th>R16</th>
+                                            <th>R17</th>
+                                            <th>R18</th>
+                                            <th>R19</th>
+                                            <th>R20</th>
+                                            <th>R21</th>
+                                            <th>R22</th>
+                                            <th>R23</th>
+                                            <th>R24</th>
+                                            <th>R25</th>
+                                            <th>R26</th>
+                                            <th>R27</th>
+                                            <th>R28</th>
+                                            <th>R29</th>
+                                            <th>R30</th>
                                         </tr>
                                     </thead>
                                     <tbody id="table_body">
@@ -261,36 +276,36 @@
                                         <tr>
                                             <th>日期</th>
                                             <th>成本</th>
-                                            <th>前1</th>
-                                            <th>前2</th>
-                                            <th>前3</th>
-                                            <th>前4</th>
-                                            <th>前5</th>
-                                            <th>前6</th>
-                                            <th>前7</th>
-                                            <th>前8</th>
-                                            <th>前9</th>
-                                            <th>前10</th>
-                                            <th>前11</th>
-                                            <th>前12</th>
-                                            <th>前13</th>
-                                            <th>前14</th>
-                                            <th>前15</th>
-                                            <th>前16</th>
-                                            <th>前17</th>
-                                            <th>前18</th>
-                                            <th>前19</th>
-                                            <th>前20</th>
-                                            <th>前21</th>
-                                            <th>前22</th>
-                                            <th>前23</th>
-                                            <th>前24</th>
-                                            <th>前25</th>
-                                            <th>前26</th>
-                                            <th>前27</th>
-                                            <th>前28</th>
-                                            <th>前29</th>
-                                            <th>前30</th>
+                                            <th>R1</th>
+                                            <th>R2</th>
+                                            <th>R3</th>
+                                            <th>R4</th>
+                                            <th>R5</th>
+                                            <th>R6</th>
+                                            <th>R7</th>
+                                            <th>R8</th>
+                                            <th>R9</th>
+                                            <th>R10</th>
+                                            <th>R11</th>
+                                            <th>R12</th>
+                                            <th>R13</th>
+                                            <th>R14</th>
+                                            <th>R15</th>
+                                            <th>R16</th>
+                                            <th>R17</th>
+                                            <th>R18</th>
+                                            <th>R19</th>
+                                            <th>R20</th>
+                                            <th>R21</th>
+                                            <th>R22</th>
+                                            <th>R23</th>
+                                            <th>R24</th>
+                                            <th>R25</th>
+                                            <th>R26</th>
+                                            <th>R27</th>
+                                            <th>R28</th>
+                                            <th>R29</th>
+                                            <th>R30</th>
                                         </tr>
                                     </thead>
                                     <tbody id="table_body2">
@@ -362,63 +377,72 @@
 
         function fillTableData(start, end) {
             showLoading();
-            $.post('<?php echo site_url("boss/roi"); ?>',
-                {
+            $.ajax({
+                url : '<?php echo site_url("boss/roi"); ?>',
+                timeout: 3000,
+                type: 'POST',
+                async: true,
+                data: {
                     'appid' : <?php echo $appid; ?>,
                     'begin' : start,
                     'end' : end
                 },
-                function(result) {
-                    hideLoading();
-                    if (result) {
-                        // 删除旧数据
-                        $("#table_body").empty();
-                        for (var key in result) {
-                            // 拼接新数据
-                            var line = '<tr>';
+                dataType: 'text json',
+                success:function(result) {
+                    // 删除旧数据
+                    $("#table_body").empty();
+                    for (var key in result) {
+                        // 拼接新数据
+                        var line = '<tr>';
+                        line += '<td>';
+                        line += key;
+                        line += '</td>';
+
+                        line += '<td>';
+                        line += result[key]['1'].cost;
+                        line += '</td>';
+
+                        for (var i = 1; i < 31; i++) {
                             line += '<td>';
-                            line += key;
+                            line += result[key][String(i)].roiValue;
                             line += '</td>';
-
-                            line += '<td>';
-                            line += result[key]['1'].cost;
-                            line += '</td>';
-
-                            for (var i = 1; i < 31; i++) {
-                                line += '<td>';
-                                line += result[key][String(i)].roiValue;
-                                line += '</td>';
-                            }
-
-                            line += '</tr>';
-                            $("#table_body").append(line);
                         }
 
-                        $("#table_body2").empty();
-                        for (var key in result) {
-                            // 拼接新数据
-                            var line = '<tr>';
-                            line += '<td>';
-                            line += key;
-                            line += '</td>';
-
-                            line += '<td>';
-                            line += result[key]['1'].cost;
-                            line += '</td>';
-
-                            for (var i = 1; i < 31; i++) {
-                                line += '<td>';
-                                line += result[key][String(i)].grossIncome;
-                                line += '</td>';
-                            }
-
-                            line += '</tr>';
-                            $("#table_body2").append(line);
-                        }
-
+                        line += '</tr>';
+                        $("#table_body").append(line);
                     }
+
+                    $("#table_body2").empty();
+                    for (var key in result) {
+                        // 拼接新数据
+                        var line = '<tr>';
+                        line += '<td>';
+                        line += key;
+                        line += '</td>';
+
+                        line += '<td>';
+                        line += result[key]['1'].cost;
+                        line += '</td>';
+
+                        for (var i = 1; i < 31; i++) {
+                            line += '<td>';
+                            line += result[key][String(i)].grossIncome;
+                            line += '</td>';
+                        }
+
+                        line += '</tr>';
+                        $("#table_body2").append(line);
+                    }
+                },
+                complete: function(XHR, status) {
+                    if (status == 'timeout') {
+                    }
+
+                    hideLoading();
+                },
+                error: function(XHR) {
                 }
-            );
+            });
         }
 
         $(document).ready(

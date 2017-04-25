@@ -36,7 +36,7 @@
             <input type="password" id="inputPassword" class="form-control" placeholder="Password" name="password" required>
             <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
         </form>
-        <p class="text-center"><a href="<?php echo site_url('admin/regist'); ?>">注册</a></p>
+        <!--<p class="text-center"><a href="<?php echo site_url('admin/regist'); ?>">注册</a></p>-->
     </div> <!-- /container -->
 
 </body>

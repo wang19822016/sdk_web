@@ -92,7 +92,7 @@
                 <!-- sidebar menu: : style can be found in sidebar.less -->
                 <ul class="sidebar-menu">
                     <li class="header">MAIN NAVIGATION</li>
-                    <li class="active">
+                    <li class="">
                         <a href="<?php echo site_url('boss/views/' . $appid . '/all'); ?>">
                             <i class="fa fa-th"></i>
                             <span>总览</span>
@@ -146,7 +146,7 @@
                             </span>
                         </a>
                     </li>
-                    <li class="treeview">
+                    <li class="active treeview">
                         <a href="#">
                             <i class="fa fa-dashboard"></i>
                             <span>付费</span>
@@ -155,7 +155,7 @@
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li class=""><a href="<?php echo site_url('boss/views/' . $appid . '/pay2'); ?>"><i class="fa fa-circle-o"></i> 付费人数</a></li>
+                            <li class="active"><a href="<?php echo site_url('boss/views/' . $appid . '/pay2'); ?>"><i class="fa fa-circle-o"></i> 付费人数</a></li>
                             <li class=""><a href="<?php echo site_url('boss/views/' . $appid . '/pay3'); ?>"><i class="fa fa-circle-o"></i> 付费率</a></li>
                             <li class=""><a href="<?php echo site_url('boss/views/' . $appid . '/pay4'); ?>"><i class="fa fa-circle-o"></i> 付费人次</a></li>
                             <li class=""><a href="<?php echo site_url('boss/views/' . $appid . '/pay5'); ?>"><i class="fa fa-circle-o"></i> 鲸鱼用户</a></li>
@@ -172,12 +172,12 @@
             <!-- Content Header (Page header) -->
             <section class="content-header">
                 <h1>
-                    总览
+                    付费人数
                 </h1>
                 <ol class="breadcrumb">
                     <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
                     <li class="active">BOSS</li>
-                    <li class="active">总览</li>
+                    <li class="active">付费人数</li>
                 </ol>
             </section>
 
@@ -212,15 +212,38 @@
                                 <table id="example2" class="table table-bordered table-hover">
                                     <thead>
                                         <tr>
-                                            <th>总安装数</th>
-                                            <th>总注册数</th>
-                                            <th>总活跃数</th>
-                                            <th>总有效数</th>
-                                            <th>总付费金额</th>
-                                            <th>总付费人数</th>
-                                            <th>总付费率</th>
-                                            <th>ARPU</th>
-                                            <th>ARPPU</th>
+                                            <th>日期</th>
+                                            <th>新增</th>
+                                            <th>1</th>
+                                            <th>2</th>
+                                            <th>3</th>
+                                            <th>4</th>
+                                            <th>5</th>
+                                            <th>6</th>
+                                            <th>7</th>
+                                            <th>8</th>
+                                            <th>9</th>
+                                            <th>10</th>
+                                            <th>11</th>
+                                            <th>12</th>
+                                            <th>13</th>
+                                            <th>14</th>
+                                            <th>15</th>
+                                            <th>16</th>
+                                            <th>17</th>
+                                            <th>18</th>
+                                            <th>19</th>
+                                            <th>20</th>
+                                            <th>21</th>
+                                            <th>22</th>
+                                            <th>23</th>
+                                            <th>24</th>
+                                            <th>25</th>
+                                            <th>26</th>
+                                            <th>27</th>
+                                            <th>28</th>
+                                            <th>29</th>
+                                            <th>30</th>
                                         </tr>
                                     </thead>
                                     <tbody id="table_body">
@@ -236,6 +259,7 @@
                     </div>
                 </div>
                 <!-- /.row (main row) -->
+
             </section>
             <!-- /.content -->
         </div>
@@ -292,7 +316,7 @@
         function fillTableData(start, end) {
             showLoading();
             $.ajax({
-                url : '<?php echo site_url("boss/all"); ?>',
+                url : '<?php echo site_url("boss/pay"); ?>',
                 timeout: 3000,
                 type: 'POST',
                 async: true,
@@ -305,48 +329,26 @@
                 success:function(result) {
                     // 删除旧数据
                     $("#table_body").empty();
+                    for (var key in result) {
+                        // 拼接新数据
+                        var line = '<tr>';
+                        line += '<td>';
+                        line += key;
+                        line += '</td>';
 
-                    // 拼接新数据
-                    var line = '<tr>';
-                    line += '<td>';
-                    line += result.install;
-                    line += '</td>';
+                        line += '<td>';
+                        line += result[key]['1'].dnu;
+                        line += '</td>';
 
-                    line += '<td>';
-                    line += result.reg;
-                    line += '</td>';
+                        for (var i = 1; i < 31; i++) {
+                            line += '<td>';
+                            line += result[key][String(i)].payNum;
+                            line += '</td>';
+                        }
 
-                    line += '<td>';
-                    line += result.valid;
-                    line += '</td>';
-
-                    line += '<td>';
-                    line += result.live;
-                    line += '</td>';
-
-                    line += '<td>';
-                    line += result.pay;
-                    line += '</td>';
-
-                    line += '<td>';
-                    line += result.payuser;
-                    line += '</td>';
-
-                    line += '<td>';
-                    line += result.allpay;
-                    line += '</td>';
-
-                    line += '<td>';
-                    line += result.arpu;
-                    line += '</td>';
-
-                    line += '<td>';
-                    line += result.arppu;
-                    line += '</td>';
-
-
-                    line += '</tr>';
-                    $("#table_body").append(line);
+                        line += '</tr>';
+                        $("#table_body").append(line);
+                    }
                 },
                 complete: function(XHR, status) {
                     if (status == 'timeout') {
@@ -357,7 +359,6 @@
                 error: function(XHR) {
                 }
             });
-
         }
 
         $(document).ready(

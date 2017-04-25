@@ -92,7 +92,7 @@
                 <!-- sidebar menu: : style can be found in sidebar.less -->
                 <ul class="sidebar-menu">
                     <li class="header">MAIN NAVIGATION</li>
-                    <li class="active">
+                    <li class="">
                         <a href="<?php echo site_url('boss/views/' . $appid . '/all'); ?>">
                             <i class="fa fa-th"></i>
                             <span>总览</span>
@@ -146,7 +146,7 @@
                             </span>
                         </a>
                     </li>
-                    <li class="treeview">
+                    <li class="active treeview">
                         <a href="#">
                             <i class="fa fa-dashboard"></i>
                             <span>付费</span>
@@ -158,7 +158,7 @@
                             <li class=""><a href="<?php echo site_url('boss/views/' . $appid . '/pay2'); ?>"><i class="fa fa-circle-o"></i> 付费人数</a></li>
                             <li class=""><a href="<?php echo site_url('boss/views/' . $appid . '/pay3'); ?>"><i class="fa fa-circle-o"></i> 付费率</a></li>
                             <li class=""><a href="<?php echo site_url('boss/views/' . $appid . '/pay4'); ?>"><i class="fa fa-circle-o"></i> 付费人次</a></li>
-                            <li class=""><a href="<?php echo site_url('boss/views/' . $appid . '/pay5'); ?>"><i class="fa fa-circle-o"></i> 鲸鱼用户</a></li>
+                            <li class="active"><a href="<?php echo site_url('boss/views/' . $appid . '/pay5'); ?>"><i class="fa fa-circle-o"></i> 鲸鱼用户</a></li>
                         </ul>
                     </li>
                     <li><a href="#"><i class="fa fa-book"></i> <span>Documentation</span></a></li>
@@ -172,12 +172,12 @@
             <!-- Content Header (Page header) -->
             <section class="content-header">
                 <h1>
-                    总览
+                    付费人数
                 </h1>
                 <ol class="breadcrumb">
                     <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
                     <li class="active">BOSS</li>
-                    <li class="active">总览</li>
+                    <li class="active">付费人数</li>
                 </ol>
             </section>
 
@@ -193,18 +193,6 @@
                         <div class="box box-info">
                             <div class="box-header">
                                 <div class="row">
-                                    <div class="col-xs-2">
-                                        <form role="form" action="#" method="post">
-                                            <div class="form-group">
-                                                <div class="input-group input-group-sm">
-                                                    <div class="input-group-addon">
-                                                        <i class="fa fa-calendar"></i>
-                                                    </div>
-                                                    <input type="text" class="form-control" id="reservation">
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
                                 </div>
                             </div>
                             <!-- /.box-header -->
@@ -212,15 +200,14 @@
                                 <table id="example2" class="table table-bordered table-hover">
                                     <thead>
                                         <tr>
-                                            <th>总安装数</th>
-                                            <th>总注册数</th>
-                                            <th>总活跃数</th>
-                                            <th>总有效数</th>
-                                            <th>总付费金额</th>
-                                            <th>总付费人数</th>
-                                            <th>总付费率</th>
-                                            <th>ARPU</th>
-                                            <th>ARPPU</th>
+                                            <th>排名</th>
+                                            <th>UID</th>
+                                            <th>渠道</th>
+                                            <th>付费金额</th>
+                                            <th>注册日期</th>
+                                            <th>最初付费日期</th>
+                                            <th>最后付费日期</th>
+                                            <th>最后活跃时间</th>
                                         </tr>
                                     </thead>
                                     <tbody id="table_body">
@@ -236,6 +223,7 @@
                     </div>
                 </div>
                 <!-- /.row (main row) -->
+
             </section>
             <!-- /.content -->
         </div>
@@ -292,7 +280,7 @@
         function fillTableData(start, end) {
             showLoading();
             $.ajax({
-                url : '<?php echo site_url("boss/all"); ?>',
+                url : '<?php echo site_url("boss/payTop"); ?>',
                 timeout: 3000,
                 type: 'POST',
                 async: true,
@@ -305,48 +293,44 @@
                 success:function(result) {
                     // 删除旧数据
                     $("#table_body").empty();
+                    for (var i = 0; i < result.length; i++) {
+                        // 拼接新数据
+                        var line = '<tr>';
+                        line += '<td>';
+                        line += (i + 1);
+                        line += '</td>';
 
-                    // 拼接新数据
-                    var line = '<tr>';
-                    line += '<td>';
-                    line += result.install;
-                    line += '</td>';
+                        line += '<td>';
+                        line += result[i].uin;
+                        line += '</td>';
 
-                    line += '<td>';
-                    line += result.reg;
-                    line += '</td>';
+                        line += '<td>';
+                        line += result[i].channel;
+                        line += '</td>';
 
-                    line += '<td>';
-                    line += result.valid;
-                    line += '</td>';
+                        line += '<td>';
+                        line += result[i].money;
+                        line += '</td>';
 
-                    line += '<td>';
-                    line += result.live;
-                    line += '</td>';
+                        line += '<td>';
+                        line += result[i].reg;
+                        line += '</td>';
 
-                    line += '<td>';
-                    line += result.pay;
-                    line += '</td>';
+                        line += '<td>';
+                        line += result[i].beginpay;
+                        line += '</td>';
 
-                    line += '<td>';
-                    line += result.payuser;
-                    line += '</td>';
+                        line += '<td>';
+                        line += result[i].endpay;
+                        line += '</td>';
 
-                    line += '<td>';
-                    line += result.allpay;
-                    line += '</td>';
+                        line += '<td>';
+                        line += result[i].online;
+                        line += '</td>';
 
-                    line += '<td>';
-                    line += result.arpu;
-                    line += '</td>';
-
-                    line += '<td>';
-                    line += result.arppu;
-                    line += '</td>';
-
-
-                    line += '</tr>';
-                    $("#table_body").append(line);
+                        line += '</tr>';
+                        $("#table_body").append(line);
+                    }
                 },
                 complete: function(XHR, status) {
                     if (status == 'timeout') {
@@ -357,7 +341,6 @@
                 error: function(XHR) {
                 }
             });
-
         }
 
         $(document).ready(
@@ -388,16 +371,6 @@
                 } else {
                     end += now.getDate();
                 }
-
-                $('#reservation').daterangepicker({
-                    locale: {
-                        format: 'YYYY-MM-DD'
-                    }
-                }, function(start, end, label) {
-                    fillTableData(start.format('YYYY-MM-DD'), end.format('YYYY-MM-DD'));
-                });
-                $('#reservation').data('daterangepicker').setStartDate(start);
-                $('#reservation').data('daterangepicker').setEndDate(end);
 
                 fillTableData(start, end);
             }

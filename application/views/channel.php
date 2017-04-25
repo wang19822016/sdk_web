@@ -27,7 +27,11 @@
                 <div class="col-md-2 col-md-offset-5" style="text-align: center">
                     <table class="table table-striped" style="margin-top: 40px">
                         <tr>
-                            <td class="success"><a href="<?php echo site_url('sdk'); ?>">SDK后台</a></td>
+                            <td class="success">
+                                <form action="<?php echo site_url('sdk'); ?>" method="get">
+                                    <button type="submit" class="btn btn-primary">SDK后台</button>
+                                </form>
+                            </td>
                         </tr>
                         <tr>
                             <td class="info">
@@ -39,7 +43,7 @@
                                             <?php endforeach; ?>
                                         </select>
                                     </div>
-                                    <button type="submit" class="btn btn-primary">BOSS</button>
+                                    <button type="submit" class="btn btn-primary">BI</button>
                                 </form>
                             </td>
                         </tr>

@@ -97,7 +97,7 @@ $db['default'] = array(
 
 $db['boss'] = array(
 	'dsn'	=> '',
-	'hostname' => '10.10.10.23',
+	'hostname' => '10.10.10.88',
 	'username' => 'root',
 	'password' => '123456',
 	'database' => 'report',

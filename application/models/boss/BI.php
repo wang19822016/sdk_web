@@ -60,6 +60,16 @@ class BI extends CI_Model {
         $query = $this->db->query('select * from remain_' . $appId . ' where `date` between \'' . $begin . '\' and \'' . $end . '\'' );
         return $query->result();
     }
+
+    public function getPay($appId, $begin, $end) {
+        $query = $this->db->query('select * from pay_conversion_' . $appId . ' where `date` between \'' . $begin . '\' and \'' . $end . '\'' );
+        return $query->result();
+    }
+
+    public function getPayTop($appId) {
+        $query = $this->db->query('select a.userId as uin, a.channelType as channel, sum(a.payMoney) as money, a.regTime as reg, min(b.serverDate) as beginpay,  max(b.serverDate) as endpay, max(a.onlineLastTime) as online from daily_data_' . $appId . ' a, user_pay_' . $appId . ' b where a.userId = b.userId group by a.userId order by money desc limit 100;');
+        return $query->result();
+    }
 }
 
  ?>

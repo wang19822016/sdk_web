@@ -93,7 +93,7 @@
                 <ul class="sidebar-menu">
                     <li class="header">MAIN NAVIGATION</li>
                     <li class="">
-                        <a href="<?php echo site_url('boss'); ?>">
+                        <a href="<?php echo site_url('boss/views/' . $appid . '/all'); ?>">
                             <i class="fa fa-th"></i>
                             <span>总览</span>
                             <span class="pull-right-container">
@@ -145,6 +145,21 @@
                                 <small class="label pull-right bg-green"></small>
                             </span>
                         </a>
+                    </li>
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-dashboard"></i>
+                            <span>付费</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li class=""><a href="<?php echo site_url('boss/views/' . $appid . '/pay2'); ?>"><i class="fa fa-circle-o"></i> 付费人数</a></li>
+                            <li class=""><a href="<?php echo site_url('boss/views/' . $appid . '/pay3'); ?>"><i class="fa fa-circle-o"></i> 付费率</a></li>
+                            <li class=""><a href="<?php echo site_url('boss/views/' . $appid . '/pay4'); ?>"><i class="fa fa-circle-o"></i> 付费人次</a></li>
+                            <li class=""><a href="<?php echo site_url('boss/views/' . $appid . '/pay5'); ?>"><i class="fa fa-circle-o"></i> 鲸鱼用户</a></li>
+                        </ul>
                     </li>
                     <li><a href="#"><i class="fa fa-book"></i> <span>Documentation</span></a></li>
                 </ul>
@@ -206,7 +221,7 @@
                                             <th>付费金额</th>
                                             <th>付费人数</th>
                                             <th>付费率</th>
-                                            <th>新用户付费总额</th>
+                                            <th>新用户付费金额</th>
                                             <th>新用户付费人数</th>
                                             <th>新用户付费率</th>
                                             <th>ARPU</th>
@@ -287,108 +302,117 @@
 
         function fillTableData(start, end) {
             showLoading();
-            $.post('<?php echo site_url("boss/daily"); ?>',
-                {
+            $.ajax({
+                url : '<?php echo site_url("boss/daily"); ?>',
+                timeout: 3000,
+                type: 'POST',
+                async: true,
+                data: {
                     'appid' : <?php echo $appid; ?>,
                     'begin' : start,
                     'end' : end
                 },
-                function(result) {
-                    hideLoading();
-                    if (result) {
-                        // 删除旧数据
-                        $("#table_body").empty();
+                dataType: 'text json',
+                success:function(result) {
+                    // 删除旧数据
+                    $("#table_body").empty();
 
-                        for (var i = 0; i < result.length; i++) {
-                            // 拼接新数据
-                            var line = '<tr>';
-                            line += '<td>';
-                            line += result[i].date;
-                            line += '</td>';
+                    for (var i = 0; i < result.length; i++) {
+                        // 拼接新数据
+                        var line = '<tr>';
+                        line += '<td>';
+                        line += result[i].date;
+                        line += '</td>';
 
-                            line += '<td>';
-                            line += result[i].installNum;
-                            line += '</td>';
+                        line += '<td>';
+                        line += result[i].installNum;
+                        line += '</td>';
 
-                            line += '<td>';
-                            line += result[i].regNum;
-                            line += '</td>';
+                        line += '<td>';
+                        line += result[i].regNum;
+                        line += '</td>';
 
-                            line += '<td>';
-                            line += result[i].validNum;
-                            line += '</td>';
+                        line += '<td>';
+                        line += result[i].validNum;
+                        line += '</td>';
 
-                            line += '<td>';
-                            line += result[i].dau;
-                            line += '</td>';
+                        line += '<td>';
+                        line += result[i].dau;
+                        line += '</td>';
 
-                            line += '<td>';
-                            line += result[i].dou;
-                            line += '</td>';
+                        line += '<td>';
+                        line += result[i].dou;
+                        line += '</td>';
 
-                            line += '<td>';
-                            line += result[i].payMoney;
-                            line += '</td>';
+                        line += '<td>';
+                        line += result[i].payMoney;
+                        line += '</td>';
 
-                            line += '<td>';
-                            line += result[i].payNum;
-                            line += '</td>';
+                        line += '<td>';
+                        line += result[i].payNum;
+                        line += '</td>';
 
-                            line += '<td>';
-                            line += result[i].payRate + '%';
-                            line += '</td>';
+                        line += '<td>';
+                        line += result[i].payRate + '%';
+                        line += '</td>';
 
-                            line += '<td>';
-                            line += result[i].newUserPayMoney;
-                            line += '</td>';
+                        line += '<td>';
+                        line += result[i].newUserPayMoney;
+                        line += '</td>';
 
-                            line += '<td>';
-                            line += result[i].newUserPayNum;
-                            line += '</td>';
+                        line += '<td>';
+                        line += result[i].newUserPayNum;
+                        line += '</td>';
 
-                            line += '<td>';
-                            line += result[i].newUserPayRate + "%";
-                            line += '</td>';
+                        line += '<td>';
+                        line += result[i].newUserPayRate + "%";
+                        line += '</td>';
 
-                            line += '<td>';
-                            line += result[i].arpu;
-                            line += '</td>';
+                        line += '<td>';
+                        line += result[i].arpu;
+                        line += '</td>';
 
-                            line += '<td>';
-                            line += result[i].arppu;
-                            line += '</td>';
+                        line += '<td>';
+                        line += result[i].arppu;
+                        line += '</td>';
 
-                            line += '<td>';
-                            line += result[i].remain2 + '%';
-                            line += '</td>';
+                        line += '<td>';
+                        line += result[i].remain2 + '%';
+                        line += '</td>';
 
-                            line += '<td>';
-                            line += result[i].remain3 + '%';
-                            line += '</td>';
+                        line += '<td>';
+                        line += result[i].remain3 + '%';
+                        line += '</td>';
 
-                            line += '<td>';
-                            line += result[i].remain7 + '%';
-                            line += '</td>';
+                        line += '<td>';
+                        line += result[i].remain7 + '%';
+                        line += '</td>';
 
-                            line += '<td>';
-                            line += result[i].remain30 + '%';
-                            line += '</td>';
+                        line += '<td>';
+                        line += result[i].remain30 + '%';
+                        line += '</td>';
 
-                            line += '<td>';
-                            line += result[i].avgOnlineNum;
-                            line += '</td>';
+                        line += '<td>';
+                        line += result[i].avgOnlineNum;
+                        line += '</td>';
 
-                            line += '<td>';
-                            line += result[i].avgOnlineTime;
-                            line += '</td>';
+                        line += '<td>';
+                        line += result[i].avgOnlineTime;
+                        line += '</td>';
 
-                            line += '</tr>';
-                            $("#table_body").append(line);
-                        }
-
+                        line += '</tr>';
+                        $("#table_body").append(line);
                     }
+                },
+                complete: function(XHR, status) {
+                    if (status == 'timeout') {
+                    }
+
+                    hideLoading();
+                },
+                error: function(XHR) {
                 }
-            );
+            });
         }
 
         $(document).ready(
