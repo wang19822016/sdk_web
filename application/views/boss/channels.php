@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Boss</title>
+    <title>BI</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.6 -->
@@ -34,9 +34,9 @@
             <!-- Logo -->
             <a href="#" class="logo">
                 <!-- mini logo for sidebar mini 50x50 pixels -->
-                <span class="logo-mini"><b>A</b>LT</span>
+                <span class="logo-mini"><b>BI</b></span>
                 <!-- logo for regular state and mobile devices -->
-                <span class="logo-lg"><b>Admin</b>LTE</span>
+                <span class="logo-lg"><b>BI</b></span>
             </a>
             <!-- Header Navbar: style can be found in header.less -->
             <nav class="navbar navbar-static-top">
@@ -50,13 +50,13 @@
                         <!-- User Account: style can be found in dropdown.less -->
                         <li class="dropdown user user-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <img src="<?php echo base_url() . 'static/dist/img/user2-160x160.jpg'; ?>" class="user-image" alt="User Image">
+                                <img src="<?php echo base_url() . 'static/images/logo.png'; ?>" class="user-image" alt="User Image">
                                 <span class="hidden-xs"><?php echo $this->session->username; ?></span>
                             </a>
                             <ul class="dropdown-menu">
                                 <!-- User image -->
                                 <li class="user-header">
-                                    <img src="<?php echo base_url() . 'static/dist/img/user2-160x160.jpg'; ?>" class="img-circle" alt="User Image">
+                                    <img src="<?php echo base_url() . 'static/images/logo.png'; ?>" class="img-circle" alt="User Image">
 
                                     <p>
                                         <?php echo $this->session->username; ?>
@@ -81,7 +81,7 @@
                 <!-- Sidebar user panel -->
                 <div class="user-panel">
                     <div class="pull-left image">
-                        <img src="<?php echo base_url() . 'static/dist/img/user2-160x160.jpg'; ?>" class="img-circle" alt="User Image">
+                        <img src="<?php echo base_url() . 'static/images/logo.png'; ?>" class="img-circle" alt="User Image">
                     </div>
                     <div class="pull-left info">
                         <p><?php echo $this->session->username; ?></p>
@@ -161,7 +161,15 @@
                             <li class=""><a href="<?php echo site_url('boss/views/' . $appid . '/pay5'); ?>"><i class="fa fa-circle-o"></i> 鲸鱼用户</a></li>
                         </ul>
                     </li>
-                    <li><a href="#"><i class="fa fa-book"></i> <span>Documentation</span></a></li>
+                    <li class="">
+                        <a href="<?php echo site_url('boss/views/' . $appid . '/update'); ?>">
+                            <i class="fa fa-th"></i>
+                            <span>添加</span>
+                            <span class="pull-right-container">
+                                <small class="label pull-right bg-green"></small>
+                            </span>
+                        </a>
+                    </li>
                 </ul>
             </section>
             <!-- /.sidebar -->
@@ -176,7 +184,7 @@
                 </h1>
                 <ol class="breadcrumb">
                     <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                    <li class="active">BOSS</li>
+                    <li class="active">BI</li>
                     <li class="active">渠道</li>
                 </ol>
             </section>
@@ -308,7 +316,7 @@
             showLoading();
             $.ajax({
                 url : '<?php echo site_url("boss/channels"); ?>',
-                timeout: 3000,
+                timeout: 5000,
                 type: 'POST',
                 async: true,
                 data: {
@@ -318,6 +326,7 @@
                 },
                 dataType: 'text json',
                 success:function(result) {
+                    hideLoading();
                     // 删除旧数据
                     $("#table_body").empty();
 
@@ -362,19 +371,19 @@
                         line += '</td>';
 
                         line += '<td>';
-                        line += result[i].clickRate + '%';
+                        line += (result[i].clickRate * 100).toFixed(2) + '%';
                         line += '</td>';
 
                         line += '<td>';
-                        line += result[i].installRate + '%';
+                        line += (result[i].installRate * 100).toFixed(2) + '%';
                         line += '</td>';
 
                         line += '<td>';
-                        line += result[i].regRate + "%";
+                        line += (result[i].regRate * 100).toFixed(2) + "%";
                         line += '</td>';
 
                         line += '<td>';
-                        line += result[i].validRate + '%';
+                        line += (result[i].validRate * 100).toFixed(2) + '%';
                         line += '</td>';
 
                         line += '<td>';
@@ -386,19 +395,19 @@
                         line += '</td>';
 
                         line += '<td>';
-                        line += result[i].remain2 + '%';
+                        line += (result[i].remain2 * 100).toFixed(2) + '%';
                         line += '</td>';
 
                         line += '<td>';
-                        line += result[i].remain3 + '%';
+                        line += (result[i].remain3 * 100).toFixed(2) + '%';
                         line += '</td>';
 
                         line += '<td>';
-                        line += result[i].remain7 + '%';
+                        line += (result[i].remain7 * 100).toFixed(2) + '%';
                         line += '</td>';
 
                         line += '<td>';
-                        line += result[i].remain30 + '%';
+                        line += (result[i].remain30 * 100).toFixed(2) + '%';
                         line += '</td>';
 
                         line += '<td>';
@@ -410,7 +419,7 @@
                         line += '</td>';
 
                         line += '<td>';
-                        line += result[i].payRate + '%';
+                        line += (result[i].payRate * 100).toFixed(2) + '%';
                         line += '</td>';
 
                         line += '<td>';

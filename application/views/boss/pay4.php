@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Boss</title>
+    <title>BI</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.6 -->
@@ -34,9 +34,9 @@
             <!-- Logo -->
             <a href="#" class="logo">
                 <!-- mini logo for sidebar mini 50x50 pixels -->
-                <span class="logo-mini"><b>A</b>LT</span>
+                <span class="logo-mini"><b>BI</b></span>
                 <!-- logo for regular state and mobile devices -->
-                <span class="logo-lg"><b>Admin</b>LTE</span>
+                <span class="logo-lg"><b>BI</b></span>
             </a>
             <!-- Header Navbar: style can be found in header.less -->
             <nav class="navbar navbar-static-top">
@@ -50,13 +50,13 @@
                         <!-- User Account: style can be found in dropdown.less -->
                         <li class="dropdown user user-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <img src="<?php echo base_url() . 'static/dist/img/user2-160x160.jpg'; ?>" class="user-image" alt="User Image">
+                                <img src="<?php echo base_url() . 'static/images/logo.png'; ?>" class="user-image" alt="User Image">
                                 <span class="hidden-xs"><?php echo $this->session->username; ?></span>
                             </a>
                             <ul class="dropdown-menu">
                                 <!-- User image -->
                                 <li class="user-header">
-                                    <img src="<?php echo base_url() . 'static/dist/img/user2-160x160.jpg'; ?>" class="img-circle" alt="User Image">
+                                    <img src="<?php echo base_url() . 'static/images/logo.png'; ?>" class="img-circle" alt="User Image">
 
                                     <p>
                                         <?php echo $this->session->username; ?>
@@ -81,7 +81,7 @@
                 <!-- Sidebar user panel -->
                 <div class="user-panel">
                     <div class="pull-left image">
-                        <img src="<?php echo base_url() . 'static/dist/img/user2-160x160.jpg'; ?>" class="img-circle" alt="User Image">
+                        <img src="<?php echo base_url() . 'static/images/logo.png'; ?>" class="img-circle" alt="User Image">
                     </div>
                     <div class="pull-left info">
                         <p><?php echo $this->session->username; ?></p>
@@ -161,7 +161,15 @@
                             <li class=""><a href="<?php echo site_url('boss/views/' . $appid . '/pay5'); ?>"><i class="fa fa-circle-o"></i> 鲸鱼用户</a></li>
                         </ul>
                     </li>
-                    <li><a href="#"><i class="fa fa-book"></i> <span>Documentation</span></a></li>
+                    <li class="">
+                        <a href="<?php echo site_url('boss/views/' . $appid . '/update'); ?>">
+                            <i class="fa fa-th"></i>
+                            <span>添加</span>
+                            <span class="pull-right-container">
+                                <small class="label pull-right bg-green"></small>
+                            </span>
+                        </a>
+                    </li>
                 </ul>
             </section>
             <!-- /.sidebar -->
@@ -172,12 +180,12 @@
             <!-- Content Header (Page header) -->
             <section class="content-header">
                 <h1>
-                    付费人次
+                    鲸鱼用户
                 </h1>
                 <ol class="breadcrumb">
                     <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                    <li class="active">BOSS</li>
-                    <li class="active">付费人次</li>
+                    <li class="active">BI</li>
+                    <li class="active">鲸鱼用户</li>
                 </ol>
             </section>
 
@@ -214,36 +222,36 @@
                                         <tr>
                                             <th>日期</th>
                                             <th>新增</th>
-                                            <th>1</th>
-                                            <th>2</th>
-                                            <th>3</th>
-                                            <th>4</th>
-                                            <th>5</th>
-                                            <th>6</th>
-                                            <th>7</th>
-                                            <th>8</th>
-                                            <th>9</th>
-                                            <th>10</th>
-                                            <th>11</th>
-                                            <th>12</th>
-                                            <th>13</th>
-                                            <th>14</th>
-                                            <th>15</th>
-                                            <th>16</th>
-                                            <th>17</th>
-                                            <th>18</th>
-                                            <th>19</th>
-                                            <th>20</th>
-                                            <th>21</th>
-                                            <th>22</th>
-                                            <th>23</th>
-                                            <th>24</th>
-                                            <th>25</th>
-                                            <th>26</th>
-                                            <th>27</th>
-                                            <th>28</th>
-                                            <th>29</th>
-                                            <th>30</th>
+                                            <th>1日</th>
+                                            <th>2日</th>
+                                            <th>3日</th>
+                                            <th>4日</th>
+                                            <th>5日</th>
+                                            <th>6日</th>
+                                            <th>7日</th>
+                                            <th>8日</th>
+                                            <th>9日</th>
+                                            <th>10日</th>
+                                            <th>11日</th>
+                                            <th>12日</th>
+                                            <th>13日</th>
+                                            <th>14日</th>
+                                            <th>15日</th>
+                                            <th>16日</th>
+                                            <th>17日</th>
+                                            <th>18日</th>
+                                            <th>19日</th>
+                                            <th>20日</th>
+                                            <th>21日</th>
+                                            <th>22日</th>
+                                            <th>23日</th>
+                                            <th>24日</th>
+                                            <th>25日</th>
+                                            <th>26日</th>
+                                            <th>27日</th>
+                                            <th>28日</th>
+                                            <th>29日</th>
+                                            <th>30日</th>
                                         </tr>
                                     </thead>
                                     <tbody id="table_body">
@@ -317,7 +325,7 @@
             showLoading();
             $.ajax({
                 url : '<?php echo site_url("boss/pay"); ?>',
-                timeout: 3000,
+                timeout: 5000,
                 type: 'POST',
                 async: true,
                 data: {
@@ -327,6 +335,7 @@
                 },
                 dataType: 'text json',
                 success:function(result) {
+                    hideLoading();
                     // 删除旧数据
                     $("#table_body").empty();
                     for (var key in result) {

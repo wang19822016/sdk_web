@@ -10,7 +10,6 @@ class Boss extends CI_Controller {
     public function index() {
         $appId = $this->input->post('id');
         //$appId = 3;
-
         $this->views($appId, "all");
     }
 
@@ -134,7 +133,64 @@ class Boss extends CI_Controller {
             ->set_output(json_encode($this->getPayTop($appId)));
     }
 
-    public function getAll($appId, $begin, $end) {
+    public function update() {
+        if ($this->input->post('channel')) {
+            $appId = $this->input->post('appId');
+            $showNum = $this->input->post('showNum');
+            $clickNum = $this->input->post('clickNum');
+            $costMoney = $this->input->post('costMoney');
+            $date = $this->input->post('date');
+            $channel = $this->input->post('channel');
+
+            if (!is_numeric($appId)) {
+                $this->output
+                    ->set_content_type('application/json')
+                    ->set_output(json_encode(array('result' =>'appid')));
+                return;
+            }
+
+            if (!is_numeric($showNum)) {
+                $this->output
+                    ->set_content_type('application/json')
+                    ->set_output(json_encode(array('result' =>'shownum')));
+                return;
+            }
+
+            if (!is_numeric($clickNum)) {
+                $this->output
+                    ->set_content_type('application/json')
+                    ->set_output(json_encode(array('result' =>'clicknum')));
+                return;
+            }
+
+            if (!is_numeric($costMoney)) {
+                $this->output
+                    ->set_content_type('application/json')
+                    ->set_output(json_encode(array('result' =>'costmoney')));
+                return;
+            }
+
+            $this->load->model('boss/BI', 'bi');
+            if ($this->bi->update($appId, $date, $channel, $showNum, $clickNum, $costMoney)) {
+                $this->output
+                    ->set_content_type('application/json')
+                    ->set_output(json_encode(array('result' =>'ok')));
+                return;
+            } else {
+                $this->output
+                    ->set_content_type('application/json')
+                    ->set_output(json_encode(array('result' =>'db')));
+                return;
+            }
+        }
+
+        $this->output
+            ->set_content_type('application/json')
+            ->set_output(json_encode(array('result' =>'fail')));
+    }
+
+    // 以下是内部操作
+    private function getAll($appId, $begin, $end) {
         $this->load->model('boss/BI', 'bi');
         $rc = $this->bi->getInstallNum($appId, $begin, $end);
         if ($rc && count($rc) > 0 && $rc[0]->install) {
@@ -182,7 +238,7 @@ class Boss extends CI_Controller {
             $data['allpay'] = 0;
             $data['arpu'] = 0;
         } else {
-            $data['allpay'] = sprintf("%.2f", $data['payuser'] / $data['live'] * 100);
+            $data['allpay'] = sprintf("%.2f", $data['payuser'] / $data['live']);
             $data['arpu'] = sprintf("%.2f", $data['pay'] / $data['live']);
         }
 
@@ -197,7 +253,7 @@ class Boss extends CI_Controller {
         return $data;
     }
 
-    public function getDaily($appId, $begin, $end) {
+    private function getDaily($appId, $begin, $end) {
         $this->load->model('boss/BI', 'bi');
         $rc = $this->bi->getDaily($appId, $begin, $end);
 
@@ -210,7 +266,7 @@ class Boss extends CI_Controller {
         return $data;
     }
 
-    public function getChannels($appId, $begin, $end) {
+    private function getChannels($appId, $begin, $end) {
         $this->load->model('boss/BI', 'bi');
         $rc = $this->bi->getChannels($appId, $begin, $end);
 
@@ -223,21 +279,23 @@ class Boss extends CI_Controller {
         return $data;
     }
 
-    public function getLTV($appId, $begin, $end) {
+    private function getLTV($appId, $begin, $end) {
         $this->load->model('boss/BI', 'bi');
         $rc = $this->bi->getLTV($appId, $begin, $end);
 
         $begin_date = date_create($begin);
         $end_date = date_create($end);
 
+
         $data = array();
         while ($begin_date <= $end_date) {
             $data[date_format($begin_date, "Y-m-d")] = array();
             for ($i=1; $i < 31; $i++) {
-                $data[date_format($begin_date, "Y-m-d")][$i] = "-";
+                $data[date_format($begin_date, "Y-m-d")][$i] = "";
             }
             date_add($begin_date, date_interval_create_from_date_string("1 days"));
         }
+
 
         foreach ($rc as $row) {
             $data[$row->date][$row->ltvDays] = $row->ltvValue;
@@ -246,7 +304,7 @@ class Boss extends CI_Controller {
         return $data;
     }
 
-    public function getROI($appId, $begin, $end) {
+    private function getROI($appId, $begin, $end) {
         $this->load->model('boss/BI', 'bi');
         $rc = $this->bi->getROI($appId, $begin, $end);
 
@@ -257,7 +315,7 @@ class Boss extends CI_Controller {
         while ($begin_date <= $end_date) {
             $data[date_format($begin_date, "Y-m-d")] = array();
             for ($i=1; $i < 31; $i++) {
-                $data[date_format($begin_date, "Y-m-d")][$i] = array('id' => '-', 'date' => '-', 'roiDays' => '-', 'roiValue' => '-', 'grossIncome' => '-', 'cost' => '-');
+                $data[date_format($begin_date, "Y-m-d")][$i] = array('roiValue' => '', 'grossIncome' => '', 'cost' => '');
             }
             date_add($begin_date, date_interval_create_from_date_string("1 days"));
         }
@@ -269,7 +327,7 @@ class Boss extends CI_Controller {
         return $data;
     }
 
-    public function getRemain($appId, $begin, $end) {
+    private function getRemain($appId, $begin, $end) {
         $this->load->model('boss/BI', 'bi');
         $rc = $this->bi->getRemain($appId, $begin, $end);
 
@@ -280,7 +338,7 @@ class Boss extends CI_Controller {
         while ($begin_date <= $end_date) {
             $data[date_format($begin_date, "Y-m-d")] = array();
             for ($i=1; $i < 31; $i++) {
-                $data[date_format($begin_date, "Y-m-d")][$i] = "-";
+                $data[date_format($begin_date, "Y-m-d")][$i] = "";
             }
             date_add($begin_date, date_interval_create_from_date_string("1 days"));
         }
@@ -292,7 +350,7 @@ class Boss extends CI_Controller {
         return $data;
     }
 
-    public function getPay($appId, $begin, $end) {
+    private function getPay($appId, $begin, $end) {
         $this->load->model('boss/BI', 'bi');
         $rc = $this->bi->getPay($appId, $begin, $end);
 
@@ -303,7 +361,7 @@ class Boss extends CI_Controller {
         while ($begin_date <= $end_date) {
             $data[date_format($begin_date, "Y-m-d")] = array();
             for ($i=1; $i < 31; $i++) {
-                $data[date_format($begin_date, "Y-m-d")][$i] = array("payDays" => '-', 'dnu' => '-', 'payNum' => '-', 'payTimes' => '-', 'payRate' => '-');
+                $data[date_format($begin_date, "Y-m-d")][$i] = array('dnu' => '', 'payNum' => '', 'payTimes' => '', 'payRate' => '');
             }
             date_add($begin_date, date_interval_create_from_date_string("1 days"));
         }
@@ -315,7 +373,7 @@ class Boss extends CI_Controller {
         return $data;
     }
 
-    public function getPayTop($appId) {
+    private function getPayTop($appId) {
         $this->load->model('boss/BI', 'bi');
         $rc = $this->bi->getPayTop($appId);
 
@@ -328,56 +386,6 @@ class Boss extends CI_Controller {
         }
 
         return $data;
-    }
-
-    public function bossupdate() {
-        $showNum = '0';
-        $clickNum = '0';
-        $costMoney = '0';
-        $channel = '';
-        $date = mdate('%Y-%m-%d', time());
-        $message = '';
-        if ($this->input->post('channel')) {
-            $showNum = $this->input->post('showNum');
-            $clickNum = $this->input->post('clickNum');
-            $costMoney = $this->input->post('costMoney');
-            $date = $this->input->post('date');
-            $channel = $this->input->post('channel');
-
-            if (!is_numeric($showNum)) {
-                echo "展示量不是数字";
-                return;
-            }
-
-            if (!is_numeric($clickNum)) {
-                echo "点击数不是数字";
-                return;
-            }
-
-            if (!is_numeric($costMoney)) {
-                echo "花费不是数字";
-                return;
-            }
-
-            $this->load->model('boss/ChannelReport', 'channel');
-            if ($this->channel->update($date, $channel, $showNum, $clickNum, $costMoney)) {
-                $message = '更新成功';
-            } else {
-                $message = '更新成失败';
-            }
-        }
-
-        $bar['bar'] = 6;
-        $data['showNum'] = $showNum;
-        $data['clickNum'] = $clickNum;
-        $data['costMoney'] = $costMoney;
-        $data['date'] = $date;
-        $data['channel'] = $channel;
-        $data['message'] = $message;
-        $this->load->view('sdk/header');
-        $this->load->view('sdk/sidebar', $bar);
-        $this->load->view('sdk/bossupdate', $data);
-        $this->load->view('sdk/footer');
     }
 }
 

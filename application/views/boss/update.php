@@ -146,7 +146,7 @@
                             </span>
                         </a>
                     </li>
-                    <li class="active treeview">
+                    <li class="treeview">
                         <a href="#">
                             <i class="fa fa-dashboard"></i>
                             <span>付费</span>
@@ -158,10 +158,10 @@
                             <li class=""><a href="<?php echo site_url('boss/views/' . $appid . '/pay2'); ?>"><i class="fa fa-circle-o"></i> 付费人数</a></li>
                             <li class=""><a href="<?php echo site_url('boss/views/' . $appid . '/pay3'); ?>"><i class="fa fa-circle-o"></i> 付费率</a></li>
                             <li class=""><a href="<?php echo site_url('boss/views/' . $appid . '/pay4'); ?>"><i class="fa fa-circle-o"></i> 付费人次</a></li>
-                            <li class="active"><a href="<?php echo site_url('boss/views/' . $appid . '/pay5'); ?>"><i class="fa fa-circle-o"></i> 鲸鱼用户</a></li>
+                            <li class=""><a href="<?php echo site_url('boss/views/' . $appid . '/pay5'); ?>"><i class="fa fa-circle-o"></i> 鲸鱼用户</a></li>
                         </ul>
                     </li>
-                    <li class="">
+                    <li class="active">
                         <a href="<?php echo site_url('boss/views/' . $appid . '/update'); ?>">
                             <i class="fa fa-th"></i>
                             <span>添加</span>
@@ -180,12 +180,12 @@
             <!-- Content Header (Page header) -->
             <section class="content-header">
                 <h1>
-                    付费人数
+                    添加渠道数据
                 </h1>
                 <ol class="breadcrumb">
                     <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
                     <li class="active">BI</li>
-                    <li class="active">付费人数</li>
+                    <li class="active"> 渠道数据</li>
                 </ol>
             </section>
 
@@ -200,38 +200,56 @@
                     <div class="col-xs-12">
                         <div class="box box-info">
                             <div class="box-header">
-                                <div class="row">
-                                </div>
+
                             </div>
                             <!-- /.box-header -->
-                            <div class="box-body">
-                                <table id="example2" class="table table-bordered table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>排名</th>
-                                            <th>UID</th>
-                                            <th>渠道</th>
-                                            <th>付费金额</th>
-                                            <th>注册日期</th>
-                                            <th>最初付费日期</th>
-                                            <th>最后付费日期</th>
-                                            <th>最后活跃时间</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="table_body">
+                            <form role="form">
+                                <div class="box-body">
+                                    <div class="form-group">
+                                        <label for="showNum">展示数</label>
+                                        <input type="text" class="form-control" id="showNum" name="showNum" value="">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="clickNum">点击数</label>
+                                        <input type="text" class="form-control" id="clickNum" name="clickNum" value="">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="costMoney">花费</label>
+                                        <input type="text" class="form-control" id="costMoney" name="costMoney" value="">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="datepicker">日期</label>
+                                        <div class="input-group date">
+                                          <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                          </div>
+                                          <input type="text" class="form-control pull-right" id="datepicker" name="date" value="">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>渠道</label>
+                                        <select class="form-control" name="channel" id="channel">
+                                            <option value="Fanpage">Fanpage</option>
+                                            <option value="Facebook Ads">Facebook Ads</option>
+                                            <option value="jjsgFanpage">jjsgFanpage</option>
+                                            <option value="unityads_int">unityads_int</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <!-- /.box-body -->
 
-                                    </tbody>
-                                    <tfoot>
-                                    </tfoot>
-                                </table>
-                            </div>
+                                <div class="box-footer">
+                                    <button type="button" class="btn btn-primary" name="button" id="submitbtn">submit</button>
+                                </div>
+                                <!-- /.box-header -->
+
+                            </form>
                             <!-- /.box-body -->
                         </div>
                         <!-- /.box -->
                     </div>
                 </div>
                 <!-- /.row (main row) -->
-
             </section>
             <!-- /.content -->
         </div>
@@ -285,102 +303,80 @@
             $(".loading").remove();
         }
 
-        function fillTableData(start, end) {
-            showLoading();
-            $.ajax({
-                url : '<?php echo site_url("boss/payTop"); ?>',
-                timeout: 5000,
-                type: 'POST',
-                async: true,
-                data: {
-                    'appid' : <?php echo $appid; ?>,
-                    'begin' : start,
-                    'end' : end
-                },
-                dataType: 'text json',
-                success:function(result) {
-                    // 删除旧数据
-                    $("#table_body").empty();
-                    for (var i = 0; i < result.length; i++) {
-                        // 拼接新数据
-                        var line = '<tr>';
-                        line += '<td>';
-                        line += (i + 1);
-                        line += '</td>';
-
-                        line += '<td>';
-                        line += result[i].uin;
-                        line += '</td>';
-
-                        line += '<td>';
-                        line += result[i].channel;
-                        line += '</td>';
-
-                        line += '<td>';
-                        line += result[i].money;
-                        line += '</td>';
-
-                        line += '<td>';
-                        line += result[i].reg;
-                        line += '</td>';
-
-                        line += '<td>';
-                        line += result[i].beginpay;
-                        line += '</td>';
-
-                        line += '<td>';
-                        line += result[i].endpay;
-                        line += '</td>';
-
-                        line += '<td>';
-                        line += result[i].online;
-                        line += '</td>';
-
-                        line += '</tr>';
-                        $("#table_body").append(line);
-                    }
-                },
-                complete: function(XHR, status) {
-                    if (status == 'timeout') {
-                    }
-
-                    hideLoading();
-                },
-                error: function(XHR) {
-                }
-            });
-        }
-
         $(document).ready(
             function () {
-                // 初始化数据
                 var now = new Date();
-                var last = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
-                var start = last.getFullYear() + "-";
-                if (last.getMonth() < 9) {
-                    start += '0' + (last.getMonth() + 1) + '-';
-                } else {
-                    start += (last.getMonth() + 1) + '-';
-                }
-                if (last.getDate() < 10) {
-                    start += '0' + last.getDate() + '-';
-                } else {
-                    start += last.getDate();
-                }
-
-                var end = now.getFullYear() + "-";
+                var start = now.getFullYear() + "-";
                 if (now.getMonth() < 9) {
-                    end += '0' + (now.getMonth() + 1) + '-';
+                    start += '0' + (now.getMonth() + 1) + '-';
                 } else {
-                    end += (now.getMonth() + 1) + '-';
+                    start += (now.getMonth() + 1) + '-';
                 }
                 if (now.getDate() < 10) {
-                    end += '0' + now.getDate() + '-';
+                    start += '0' + now.getDate() + '-';
                 } else {
-                    end += now.getDate();
+                    start += now.getDate();
                 }
 
-                fillTableData(start, end);
+                $( "#datepicker" ).datepicker({
+                    format: 'yyyy-mm-dd'
+                });
+
+                $("#submitbtn").click(function() {
+                    if ($("#showNum").val() == "" || $("#showNum").val() == null) {
+                        alert("请填写展示数");
+                        return;
+                    }
+
+                    if ($("#clickNum").val() == "" || $("#clickNum").val() == null) {
+                        alert("请填写点击数");
+                        return;
+                    }
+
+                    if ($("#costMoney").val() == "" || $("#costMoney").val() == null) {
+                        alert("请填写花费");
+                        return;
+                    }
+
+                    if ($("#datepicker").val() == "" || $("#datepicker").val() == null) {
+                        alert("请填写日期");
+                        return;
+                    }
+
+                    showLoading();
+                    $.ajax({
+                        url : '<?php echo site_url("boss/update"); ?>',
+                        timeout: 5000,
+                        type: 'POST',
+                        async: true,
+                        data: {
+                            appId: <?php echo $appid; ?>,
+                            showNum: $("#showNum").val(),
+                            clickNum: $("#clickNum").val(),
+                            costMoney: $("#costMoney").val(),
+                            date: $("#datepicker").val(),
+                            channel: $("#channel").val()
+                        },
+                        dataType: 'text json',
+                        success:function(result) {
+                            hideLoading();
+                            if (result.result == 'ok') {
+                                alert("提交成功");
+                            } else {
+                                alert("提交失败");
+                            }
+                        },
+                        complete: function(XHR, status) {
+                            if (status == 'timeout') {
+                                alert("提交失败");
+                            }
+
+                            hideLoading();
+                        },
+                        error: function(XHR) {
+                        }
+                    });
+                });
             }
         );
     </script>

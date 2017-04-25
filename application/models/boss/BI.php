@@ -70,6 +70,15 @@ class BI extends CI_Model {
         $query = $this->db->query('select a.userId as uin, a.channelType as channel, sum(a.payMoney) as money, a.regTime as reg, min(b.serverDate) as beginpay,  max(b.serverDate) as endpay, max(a.onlineLastTime) as online from daily_data_' . $appId . ' a, user_pay_' . $appId . ' b where a.userId = b.userId group by a.userId order by money desc limit 100;');
         return $query->result();
     }
+
+    public function update($appId, $date, $channel, $showNum, $clickNum, $costMoney) {
+        $this->db->set('showNum', $showNum);
+        $this->db->set('clickNum', $clickNum);
+        $this->db->set('costMoney', $costMoney);
+        $this->db->where('date', $date);
+        $this->db->where('channelType', $channel);
+        return $this->db->update('channel_report_' . $appId);
+    }
 }
 
  ?>
