@@ -37,32 +37,32 @@ class BI extends CI_Model {
     }
 
     public function getDaily($appId, $begin, $end) {
-        $query = $this->db->query('select * from user_report_' .$appId. ' where `date` between \'' . $begin . '\' and \'' . $end .'\'');
+        $query = $this->db->query('select * from user_report_' .$appId. ' where `date` between \'' . $begin . '\' and \'' . $end .'\' order by date desc');
         return $query->result();
     }
 
     public function getChannels($appId, $begin, $end) {
-        $query = $this->db->query('select * from channel_report_' . $appId . ' where `date` between \'' . $begin . '\' and \'' . $end . '\'' );
+        $query = $this->db->query('select * from channel_report_' . $appId . ' where `date` between \'' . $begin . '\' and \'' . $end . '\' order by date desc' );
         return $query->result();
     }
 
     public function getLTV($appId, $begin, $end) {
-        $query = $this->db->query('select * from ltv_' . $appId . ' where `date` between \'' . $begin . '\' and \'' . $end . '\'' );
+        $query = $this->db->query('select * from ltv_' . $appId . ' where `date` between \'' . $begin . '\' and \'' . $end . '\' order by date desc' );
         return $query->result();
     }
 
     public function getROI($appId, $begin, $end) {
-        $query = $this->db->query('select * from roi_' . $appId . ' where `date` between \'' . $begin . '\' and \'' . $end . '\'' );
+        $query = $this->db->query('select * from roi_' . $appId . ' where `date` between \'' . $begin . '\' and \'' . $end . '\' order by date desc' );
         return $query->result();
     }
 
     public function getRemain($appId, $begin, $end) {
-        $query = $this->db->query('select * from remain_' . $appId . ' where `date` between \'' . $begin . '\' and \'' . $end . '\'' );
+        $query = $this->db->query('select * from remain_' . $appId . ' where `date` between \'' . $begin . '\' and \'' . $end . '\' order by date desc' );
         return $query->result();
     }
 
     public function getPay($appId, $begin, $end) {
-        $query = $this->db->query('select * from pay_conversion_' . $appId . ' where `date` between \'' . $begin . '\' and \'' . $end . '\'' );
+        $query = $this->db->query('select * from pay_conversion_' . $appId . ' where `date` between \'' . $begin . '\' and \'' . $end . '\' order by date desc' );
         return $query->result();
     }
 

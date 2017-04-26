@@ -272,7 +272,7 @@
             <div class="pull-right hidden-xs">
                 <b>Version</b> 2.3.12
             </div>
-            <strong>Copyright &copy; 2014-2016 <a href="http://almsaeedstudio.com">seastar</a>.</strong> All rights reserved.
+            <strong>Copyright &copy; 2014-2017 <a href="http://almsaeedstudio.com">seastar</a>.</strong> All rights reserved.
         </footer>
         <!-- ./wrapper -->
     </div>
@@ -343,12 +343,14 @@
                         line += '</td>';
 
                         for (var i = 2; i < 31; i++) {
-                            line += '<td>';
-                            if (result[key][String(i)].length == 0)
-                                line += "";
-                            else
+                            if (result[key][String(i)] && result[key][String(i)].length > 0) {
+                                line += '<td>';
                                 line += (parseFloat(result[key][String(i)]) * 100).toFixed(2) + '%';
-                            line += '</td>';
+                                line += '</td>';
+                            } else {
+                                line += '<td></td>';
+                            }
+
                         }
 
                         line += '</tr>';

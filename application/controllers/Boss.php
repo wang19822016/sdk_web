@@ -288,13 +288,14 @@ class Boss extends CI_Controller {
 
 
         $data = array();
+        /*
         while ($begin_date <= $end_date) {
             $data[date_format($begin_date, "Y-m-d")] = array();
             for ($i=1; $i < 31; $i++) {
                 $data[date_format($begin_date, "Y-m-d")][$i] = "";
             }
             date_add($begin_date, date_interval_create_from_date_string("1 days"));
-        }
+        }*/
 
 
         foreach ($rc as $row) {
@@ -312,13 +313,14 @@ class Boss extends CI_Controller {
         $end_date = date_create($end);
 
         $data = array();
+        /*
         while ($begin_date <= $end_date) {
             $data[date_format($begin_date, "Y-m-d")] = array();
             for ($i=1; $i < 31; $i++) {
                 $data[date_format($begin_date, "Y-m-d")][$i] = array('roiValue' => '', 'grossIncome' => '', 'cost' => '');
             }
             date_add($begin_date, date_interval_create_from_date_string("1 days"));
-        }
+        }*/
 
         foreach ($rc as $row) {
             $data[$row->date][$row->roiDays] = $row;
@@ -335,13 +337,14 @@ class Boss extends CI_Controller {
         $end_date = date_create($end);
 
         $data = array();
+        /*
         while ($begin_date <= $end_date) {
             $data[date_format($begin_date, "Y-m-d")] = array();
             for ($i=1; $i < 31; $i++) {
                 $data[date_format($begin_date, "Y-m-d")][$i] = "";
             }
             date_add($begin_date, date_interval_create_from_date_string("1 days"));
-        }
+        }*/
 
         foreach ($rc as $row) {
             $data[$row->date][$row->remainDays] = $row->remainValue;
@@ -358,13 +361,14 @@ class Boss extends CI_Controller {
         $end_date = date_create($end);
 
         $data = array();
+        /*
         while ($begin_date <= $end_date) {
             $data[date_format($begin_date, "Y-m-d")] = array();
             for ($i=1; $i < 31; $i++) {
                 $data[date_format($begin_date, "Y-m-d")][$i] = array('dnu' => '', 'payNum' => '', 'payTimes' => '', 'payRate' => '');
             }
             date_add($begin_date, date_interval_create_from_date_string("1 days"));
-        }
+        }*/
 
         foreach ($rc as $row) {
             $data[$row->date][$row->payDays] = $row;
