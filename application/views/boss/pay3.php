@@ -26,7 +26,19 @@
     <!-- Bootstrap time Picker -->
     <link rel="stylesheet" href="<?php echo base_url() . 'static/plugins/timepicker/bootstrap-timepicker.min.css'; ?>">
     <link rel="stylesheet" href="<?php echo base_url() . 'static/css/loading.css'; ?>" />
-
+    <style>
+    .table-bordered {
+      border: 1px solid #BDBDBD;
+    }
+    .table-bordered > thead > tr > th,
+    .table-bordered > tbody > tr > th,
+    .table-bordered > tfoot > tr > th,
+    .table-bordered > thead > tr > td,
+    .table-bordered > tbody > tr > td,
+    .table-bordered > tfoot > tr > td {
+      border: 1px solid #BDBDBD;
+    }
+    </style>
 </head>
 <body class="hold-transition skin-blue sidebar-mini" id="loading">
     <div class="wrapper">
@@ -353,7 +365,7 @@
                         for (var i = 1; i < 31; i++) {
                             if (result[key][String(i)] && result[key][String(i)].payRate.length > 0) {
                                 line += '<td>';
-                                line += (parseFloat(result[key][String(i)].payRate) * 100).toFixed(2) + '%';
+                                line += (parseFloat(result[key][String(i)].payRate) * 100).toFixed(1) + '%';
                                 line += '</td>';
                             } else {
                                 line += '<td></td>';

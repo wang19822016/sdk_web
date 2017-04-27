@@ -32,6 +32,17 @@
             width: 2500px;
             overflow-x: auto;
         }
+        .table-bordered {
+          border: 1px solid #BDBDBD;
+        }
+        .table-bordered > thead > tr > th,
+        .table-bordered > tbody > tr > th,
+        .table-bordered > tfoot > tr > th,
+        .table-bordered > thead > tr > td,
+        .table-bordered > tbody > tr > td,
+        .table-bordered > tfoot > tr > td {
+          border: 1px solid #BDBDBD;
+        }
     </style>
 
 </head>
@@ -415,13 +426,13 @@
                         line += '</td>';
 
                         line += '<td>';
-                        line += result[key]['1'].cost;
+                        line += Math.round(result[key]['1'].cost);
                         line += '</td>';
 
                         for (var i = 1; i < 31; i++) {
                             if (result[key][String(i)]) {
                                 line += '<td>';
-                                line += result[key][String(i)].grossIncome;
+                                line += Math.round(result[key][String(i)].grossIncome);
                                 line += '</td>';
                             } else {
                                 line += '<td></td>';
@@ -441,13 +452,13 @@
                         line += '</td>';
 
                         line += '<td>';
-                        line += result[key]['1'].cost;
+                        line += Math.round(result[key]['1'].cost);
                         line += '</td>';
 
                         for (var i = 1; i < 31; i++) {
                             if (result[key][String(i)] && result[key][String(i)].roiValue.length > 0) {
                                 line += '<td>';
-                                line += (parseFloat(result[key][String(i)].roiValue) * 100).toFixed(2) + '%';
+                                line += (parseFloat(result[key][String(i)].roiValue) * 100).toFixed(1) + '%';
                                 line += '</td>';
                             } else {
                                 line += '<td></td>';

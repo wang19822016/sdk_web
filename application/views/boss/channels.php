@@ -26,7 +26,19 @@
     <!-- Bootstrap time Picker -->
     <link rel="stylesheet" href="<?php echo base_url() . 'static/plugins/timepicker/bootstrap-timepicker.min.css'; ?>">
     <link rel="stylesheet" href="<?php echo base_url() . 'static/css/loading.css'; ?>" />
-
+    <style>
+    .table-bordered {
+      border: 1px solid #BDBDBD;
+    }
+    .table-bordered > thead > tr > th,
+    .table-bordered > tbody > tr > th,
+    .table-bordered > tfoot > tr > th,
+    .table-bordered > thead > tr > td,
+    .table-bordered > tbody > tr > td,
+    .table-bordered > tfoot > tr > td {
+      border: 1px solid #BDBDBD;
+    }
+    </style>
 </head>
 <body class="hold-transition skin-blue sidebar-mini" id="loading">
     <div class="wrapper">
@@ -351,11 +363,11 @@
                         line += '</td>';
 
                         line += '<td>';
-                        line += result[i].cpc;
+                        line += parseFloat(result[i].cpc).toFixed(1);
                         line += '</td>';
 
                         line += '<td>';
-                        line += result[i].cpm;
+                        line += parseFloat(result[i].cpm).toFixed(1);
                         line += '</td>';
 
                         line += '<td>';
@@ -363,7 +375,7 @@
                         line += '</td>';
 
                         line += '<td>';
-                        line += result[i].cpi;
+                        line += parseFloat(result[i].cpi).toFixed(1);
                         line += '</td>';
 
                         line += '<td>';
@@ -379,35 +391,35 @@
                         line += '</td>';
 
                         line += '<td>';
-                        line += (result[i].regRate * 100).toFixed(2) + "%";
+                        line += (result[i].regRate * 100).toFixed(1) + "%";
                         line += '</td>';
 
                         line += '<td>';
-                        line += (result[i].validRate * 100).toFixed(2) + '%';
+                        line += (result[i].validRate * 100).toFixed(1) + '%';
                         line += '</td>';
 
                         line += '<td>';
-                        line += result[i].roi;
+                        line += parseFloat(result[i].roi * 100).toFixed(1);
                         line += '</td>';
 
                         line += '<td>';
-                        line += result[i].costMoney;
+                        line += Math.round(result[i].costMoney);
                         line += '</td>';
 
                         line += '<td>';
-                        line += (result[i].remain2 * 100).toFixed(2) + '%';
+                        line += (result[i].remain2 * 100).toFixed(1) + '%';
                         line += '</td>';
 
                         line += '<td>';
-                        line += (result[i].remain3 * 100).toFixed(2) + '%';
+                        line += (result[i].remain3 * 100).toFixed(1) + '%';
                         line += '</td>';
 
                         line += '<td>';
-                        line += (result[i].remain7 * 100).toFixed(2) + '%';
+                        line += (result[i].remain7 * 100).toFixed(1) + '%';
                         line += '</td>';
 
                         line += '<td>';
-                        line += (result[i].remain30 * 100).toFixed(2) + '%';
+                        line += (result[i].remain30 * 100).toFixed(1) + '%';
                         line += '</td>';
 
                         line += '<td>';
@@ -419,15 +431,15 @@
                         line += '</td>';
 
                         line += '<td>';
-                        line += (result[i].payRate * 100).toFixed(2) + '%';
+                        line += (result[i].payRate * 100).toFixed(1) + '%';
                         line += '</td>';
 
                         line += '<td>';
-                        line += result[i].arpu;
+                        line += parseFloat(result[i].arpu).toFixed(1);
                         line += '</td>';
 
                         line += '<td>';
-                        line += result[i].arppu;
+                        line += parseFloat(result[i].arppu).toFixed(1);
                         line += '</td>';
 
                         line += '</tr>';

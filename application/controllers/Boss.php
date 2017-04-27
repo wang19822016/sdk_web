@@ -213,6 +213,20 @@ class Boss extends CI_Controller {
             $data['valid'] = 0;
         }
 
+		$rc = $this->bi->getCost($appId, $begin, $end);
+        if ($rc && count($rc) > 0 && $rc[0] && $rc[0]->cost) {
+            $data['cost'] = $rc[0]->cost;
+        } else {
+            $data['cost'] = 0;
+		}
+
+		$rc = $this->bi->getPayUserCount($appId, $begin, $end);
+        if ($rc && count($rc) > 0 && $rc[0] && $rc[0]->paypnumber) {
+            $data['paypnumber'] = $rc[0]->paypnumber;
+        } else {
+            $data['paypnumber'] = 0;
+        }
+
         $rc = $this->bi->getLiveUserNum($appId, $begin, $end);
         if ($rc && count($rc) > 0 && $rc[0] && $rc[0]->live) {
             $data['live'] = $rc[0]->live;
@@ -299,7 +313,7 @@ class Boss extends CI_Controller {
 
 
         foreach ($rc as $row) {
-            $data[$row->date][$row->ltvDays] = $row->ltvValue;
+            $data[$row->date][$row->ltvDays] = $row;
         }
 
         return $data;
@@ -347,7 +361,7 @@ class Boss extends CI_Controller {
         }*/
 
         foreach ($rc as $row) {
-            $data[$row->date][$row->remainDays] = $row->remainValue;
+            $data[$row->date][$row->remainDays] = $row;
         }
 
         return $data;
@@ -379,8 +393,11 @@ class Boss extends CI_Controller {
 
     private function getPayTop($appId) {
         $this->load->model('boss/BI', 'bi');
-        $rc = $this->bi->getPayTop($appId);
+		$beginDate = date('Y-m-d', time());
+		$weekDate = date('Y-m-d', strtotime("-7 day"));
+		$monthDate = date('Y-m-d', strtotime("-30 day"));
 
+        $rc = $this->bi->getPayTop($appId, $beginDate, $weekDate, $monthDate);
         //$data = array("uin" => '-', "channel" => '-', 'money' => '-', 'reg' => '-', 'beginpay' => '-', 'endpay' => '-', 'online' => '-');
         $data = array();
         if ($rc && count($rc) > 0) {

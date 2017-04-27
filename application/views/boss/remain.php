@@ -26,6 +26,19 @@
     <!-- Bootstrap time Picker -->
     <link rel="stylesheet" href="<?php echo base_url() . 'static/plugins/timepicker/bootstrap-timepicker.min.css'; ?>">
     <link rel="stylesheet" href="<?php echo base_url() . 'static/css/loading.css'; ?>" />
+    <style>
+    .table-bordered {
+      border: 1px solid #BDBDBD;
+    }
+    .table-bordered > thead > tr > th,
+    .table-bordered > tbody > tr > th,
+    .table-bordered > tfoot > tr > th,
+    .table-bordered > thead > tr > td,
+    .table-bordered > tbody > tr > td,
+    .table-bordered > tfoot > tr > td {
+      border: 1px solid #BDBDBD;
+    }
+    </style>
 </head>
 <body class="hold-transition skin-blue sidebar-mini" id="loading">
     <div class="wrapper">
@@ -219,7 +232,8 @@
                                 <table id="example2" class="table table-bordered table-hover">
                                     <thead>
                                         <tr>
-                                            <th>日期</th>
+											<th>日期</th>
+											<th>新增</th>
                                             <th>2留</th>
                                             <th>3留</th>
                                             <th>4留</th>
@@ -342,10 +356,13 @@
                         line += key;
                         line += '</td>';
 
+						line += '<td>';
+						line += result[key]['2'].dnu;
+
                         for (var i = 2; i < 31; i++) {
-                            if (result[key][String(i)] && result[key][String(i)].length > 0) {
+                            if (result[key][String(i)] && result[key][String(i)].remainValue.length > 0) {
                                 line += '<td>';
-                                line += (parseFloat(result[key][String(i)]) * 100).toFixed(2) + '%';
+                                line += (parseFloat(result[key][String(i)].remainValue) * 100).toFixed(1) + '%';
                                 line += '</td>';
                             } else {
                                 line += '<td></td>';

@@ -27,6 +27,19 @@
     <link rel="stylesheet" href="<?php echo base_url() . 'static/plugins/timepicker/bootstrap-timepicker.min.css'; ?>">
     <link rel="stylesheet" href="<?php echo base_url() . 'static/css/loading.css'; ?>" />
 
+    <style>
+    .table-bordered {
+      border: 1px solid #BDBDBD;
+    }
+    .table-bordered > thead > tr > th,
+    .table-bordered > tbody > tr > th,
+    .table-bordered > tfoot > tr > th,
+    .table-bordered > thead > tr > td,
+    .table-bordered > tbody > tr > td,
+    .table-bordered > tfoot > tr > td {
+      border: 1px solid #BDBDBD;
+    }
+    </style>
 </head>
 <body class="hold-transition skin-blue sidebar-mini" id="loading">
     <div class="wrapper">
@@ -224,8 +237,10 @@
                                             <th>总注册数</th>
                                             <th>总活跃数</th>
                                             <th>总有效数</th>
+											<th>总成本</th>
                                             <th>总付费金额</th>
-                                            <th>总付费人数</th>
+											<th>总付费人数</th>
+											<th>总付费人次</th>
                                             <th>总付费率</th>
                                             <th>ARPU</th>
                                             <th>ARPPU</th>
@@ -331,26 +346,34 @@
 
                     line += '<td>';
                     line += result.valid;
-                    line += '</td>';
+					line += '</td>';
+
+					line += '<td>';
+					line += Math.round(result.cost);
+					line += '</td>';
 
                     line += '<td>';
-                    line += result.pay;
+                    line += Math.round(result.pay);
                     line += '</td>';
 
                     line += '<td>';
                     line += result.payuser;
+					line += '</td>';
+
+					line += '<td>';
+					line += result.paypnumber;
+					line += '</td>';
+
+                    line += '<td>';
+                    line += (result.allpay * 100).toFixed(1) + '%';
                     line += '</td>';
 
                     line += '<td>';
-                    line += (result.allpay * 100).toFixed(2) + '%';
+                    line += parseFloat(result.arpu).toFixed(1);
                     line += '</td>';
 
                     line += '<td>';
-                    line += result.arpu;
-                    line += '</td>';
-
-                    line += '<td>';
-                    line += result.arppu;
+                    line += parseFloat(result.arppu).toFixed(1);
                     line += '</td>';
 
 

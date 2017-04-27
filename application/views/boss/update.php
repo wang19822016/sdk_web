@@ -26,7 +26,6 @@
     <!-- Bootstrap time Picker -->
     <link rel="stylesheet" href="<?php echo base_url() . 'static/plugins/timepicker/bootstrap-timepicker.min.css'; ?>">
     <link rel="stylesheet" href="<?php echo base_url() . 'static/css/loading.css'; ?>" />
-
 </head>
 <body class="hold-transition skin-blue sidebar-mini" id="loading">
     <div class="wrapper">

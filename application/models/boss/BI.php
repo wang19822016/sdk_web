@@ -21,6 +21,11 @@ class BI extends CI_Model {
         return $query->result();
     }
 
+	public function getCost($appId, $begin, $end) {
+        $query = $this->db->query('select sum(costMoney) as cost from channel_report_' .$appId. ' where date between \'' . $begin . '\' and \'' . $end . '\'' );
+        return $query->result();
+    }
+
     public function getLiveUserNum($appId, $begin, $end) {
         $query = $this->db->query('select count(distinct userid) as live from daily_data_' .$appId. ' where loginTime between \'' . $begin . '\' and \'' . $end . '\'' );
         return $query->result();
@@ -29,7 +34,12 @@ class BI extends CI_Model {
     public function getPayNum($appId, $begin, $end) {
         $query = $this->db->query('select sum(paymoney) as pay from user_report_' .$appId. ' where date between \'' . $begin . '\' and \'' . $end . '\'' );
         return $query->result();
-    }
+	}
+
+	public function getPayUserCount($appId, $begin, $end) {
+		$query = $this->db->query('select count(userid) as paypnumber from user_pay_' .$appId. ' where serverDate between \'' . $begin . '\' and \'' . $end . '\'' );
+        return $query->result();
+	}
 
     public function getPayUserNum($appId, $begin, $end) {
         $query = $this->db->query('select count(distinct userid) as pay_user from daily_data_' .$appId. ' where loginTime between \'' . $begin . '\' and \'' . $end . '\' and paymoney > 0' );
@@ -66,9 +76,9 @@ class BI extends CI_Model {
         return $query->result();
     }
 
-    public function getPayTop($appId) {
-        $query = $this->db->query('select a.userId as uin, a.channelType as channel, sum(a.payMoney) as money, a.regTime as reg, min(b.serverDate) as beginpay,  max(b.serverDate) as endpay, max(a.onlineLastTime) as online from daily_data_' . $appId . ' a, user_pay_' . $appId . ' b where a.userId = b.userId group by a.userId order by money desc limit 100;');
-        return $query->result();
+    public function getPayTop($appId, $beginDate, $weekDate, $monthDate) {
+		$query = $this->db->query("select userId as uin, channelType as channel, sum(payMoney) as money, SUM(IF(loginTime >= '" . $weekDate . "' and loginTime <= '" . $beginDate . "', payMoney, 0)) as weekmoney, SUM(IF(loginTime >= '" . $monthDate . "' and loginTime <= '" . $beginDate . "', payMoney, 0)) as monthmoney, regTime as reg, min(loginTime) as beginpay, max(loginTime) as endpay, max(onlineLastTime) as online from daily_data_" . $appId . " where payMoney > 0 group by userId order by money desc limit 100;");
+		return $query->result();
     }
 
     public function update($appId, $date, $channel, $showNum, $clickNum, $costMoney) {

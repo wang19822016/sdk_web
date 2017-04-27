@@ -66,7 +66,19 @@ class Admin extends CI_Controller {
 
     public function channels() {
         $this->load->model('sdk/App', 'app');
-        $data['apps'] = $this->app->getAll();
+        $result = $this->app->getAll();
+        $j = 0;
+        $data['apps'] = array();
+        $data['apps'][$j] = array();
+
+        for ($i=0; $i < count($result); $i++) {
+            array_push($data['apps'][$j], $result[$i]);
+            if (count($data['apps'][$j]) == 4) {
+                $j++;
+                array_push($data['apps'], array());
+            }
+        }
+
         $this->load->view('channel', $data);
     }
 }

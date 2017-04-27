@@ -32,6 +32,17 @@
             width: 2000px;
             overflow-x: auto;
         }
+        .table-bordered {
+          border: 1px solid #BDBDBD;
+        }
+        .table-bordered > thead > tr > th,
+        .table-bordered > tbody > tr > th,
+        .table-bordered > tfoot > tr > th,
+        .table-bordered > thead > tr > td,
+        .table-bordered > tbody > tr > td,
+        .table-bordered > tfoot > tr > td {
+          border: 1px solid #BDBDBD;
+        }
     </style>
 </head>
 <body class="hold-transition skin-blue sidebar-mini" id="loading">
@@ -227,6 +238,7 @@
                                     <thead>
                                         <tr>
                                             <th>日期</th>
+											<th>CPI</th>
                                             <th>L1</th>
                                             <th>L2</th>
                                             <th>L3</th>
@@ -340,7 +352,6 @@
                 dataType: 'text json',
                 success:function(result) {
                     hideLoading();
-
                     // 删除旧数据
                     $("#table_body").empty();
 
@@ -351,10 +362,14 @@
                         line += key;
                         line += '</td>';
 
+						line += '<td>';
+						line += parseFloat(result[key][1].cpi).toFixed(1);
+						line += '</td>';
+
                         for (var i = 1; i < 31; i++) {
-                            if (result[key][String(i)] && result[key][String(i)].length > 0) {
+                            if (result[key][String(i)] && result[key][String(i)].ltvValue.length > 0) {
                                 line += '<td>';
-                                line += parseFloat(result[key][String(i)]).toFixed(2);
+                                line += parseFloat(result[key][String(i)].ltvValue).toFixed(1);
                                 line += '</td>';
                             } else {
                                 line += '<td></td>';
