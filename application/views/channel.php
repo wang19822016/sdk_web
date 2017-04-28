@@ -16,12 +16,20 @@
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 </head>
-<body class="hold-transition skin-blue">
+<body>
     <div class="container-fluid">
+        <?php
+        $i = 0;
+        while ($i < 8) {
+            $i++;
+            echo '<div class="row"><div class="col-md-3"><p></p></div></div>';
+        }
+
+         ?>
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
-                <div class="panel panel-success" style="margin-top: 50px">
-                    <div class="panel-heading"><h1>选择入口</h1></div>
+                <div class="panel panel-primary">
+                    <div class="panel-heading">选择入口</div>
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-3">
@@ -49,41 +57,15 @@
                             </div>
                         <?php endforeach; ?>
 
-                        <div class="row">
-                            <div class="col-md-3">
-                                <p></p>
-                            </div>
-                            <div class="col-md-3">
-                                <p></p>
-                            </div>
-                            <div class="col-md-3">
-                                <p></p>
-                            </div>
-                        </div>
+                        <?php
+                        $i = 0;
+                        while ($i < 50) {
+                            $i++;
+                            echo '<div class="row"><div class="col-md-3"><p></p></div></div>';
+                        }
 
-                        <div class="row">
-                            <div class="col-md-3">
-                                <p></p>
-                            </div>
-                            <div class="col-md-3">
-                                <p></p>
-                            </div>
-                            <div class="col-md-3">
-                                <p></p>
-                            </div>
-                        </div>
+                         ?>
 
-                        <div class="row">
-                            <div class="col-md-3">
-                                <p></p>
-                            </div>
-                            <div class="col-md-3">
-                                <p></p>
-                            </div>
-                            <div class="col-md-3">
-                                <p></p>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
