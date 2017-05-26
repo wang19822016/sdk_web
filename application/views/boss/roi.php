@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>BI</title>
+    <title><?php echo $appname . '&nbsp-&nbsp' . $platform; ?></title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.6 -->
@@ -50,7 +50,7 @@
     <div class="wrapper">
         <header class="main-header">
             <!-- Logo -->
-            <a href="#" class="logo">
+            <a href="<?php echo site_url('admin/channels'); ?>" class="logo">
                 <!-- mini logo for sidebar mini 50x50 pixels -->
                 <span class="logo-mini"><b>BI</b></span>
                 <!-- logo for regular state and mobile devices -->
@@ -111,7 +111,7 @@
                 <ul class="sidebar-menu">
                     <li class="header">MAIN NAVIGATION</li>
                     <li class="">
-                        <a href="<?php echo site_url('boss/views/' . $appid . '/all'); ?>">
+                        <a href="<?php echo site_url('boss/views/' . $platform . '/' . $appid . '/all'); ?>">
                             <i class="fa fa-th"></i>
                             <span>总览</span>
                             <span class="pull-right-container">
@@ -120,7 +120,7 @@
                         </a>
                     </li>
                     <li class="">
-                        <a href="<?php echo site_url('boss/views/' . $appid . '/daily'); ?>">
+                        <a href="<?php echo site_url('boss/views/' . $platform . '/' . $appid . '/daily'); ?>">
                             <i class="fa fa-th"></i>
                             <span>日报</span>
                             <span class="pull-right-container">
@@ -129,7 +129,7 @@
                         </a>
                     </li>
                     <li class="">
-                        <a href="<?php echo site_url('boss/views/' . $appid . '/channels'); ?>">
+                        <a href="<?php echo site_url('boss/views/' . $platform . '/' . $appid . '/channels'); ?>">
                             <i class="fa fa-th"></i>
                             <span>渠道</span>
                             <span class="pull-right-container">
@@ -138,7 +138,7 @@
                         </a>
                     </li>
                     <li class="">
-                        <a href="<?php echo site_url('boss/views/' . $appid . '/ltv'); ?>">
+                        <a href="<?php echo site_url('boss/views/' . $platform . '/' . $appid . '/ltv'); ?>">
                             <i class="fa fa-th"></i>
                             <span>LTV</span>
                             <span class="pull-right-container">
@@ -147,7 +147,7 @@
                         </a>
                     </li>
                     <li class="active">
-                        <a href="<?php echo site_url('boss/views/' . $appid . '/roi'); ?>">
+                        <a href="<?php echo site_url('boss/views/' . $platform . '/' . $appid . '/roi'); ?>">
                             <i class="fa fa-th"></i>
                             <span>ROI</span>
                             <span class="pull-right-container">
@@ -156,7 +156,7 @@
                         </a>
                     </li>
                     <li class="">
-                        <a href="<?php echo site_url('boss/views/' . $appid . '/remain'); ?>">
+                        <a href="<?php echo site_url('boss/views/' . $platform . '/' . $appid . '/remain'); ?>">
                             <i class="fa fa-th"></i>
                             <span>留存</span>
                             <span class="pull-right-container">
@@ -173,14 +173,14 @@
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li class=""><a href="<?php echo site_url('boss/views/' . $appid . '/pay2'); ?>"><i class="fa fa-circle-o"></i> 付费人数</a></li>
-                            <li class=""><a href="<?php echo site_url('boss/views/' . $appid . '/pay3'); ?>"><i class="fa fa-circle-o"></i> 付费率</a></li>
-                            <li class=""><a href="<?php echo site_url('boss/views/' . $appid . '/pay4'); ?>"><i class="fa fa-circle-o"></i> 付费人次</a></li>
-                            <li class=""><a href="<?php echo site_url('boss/views/' . $appid . '/pay5'); ?>"><i class="fa fa-circle-o"></i> 鲸鱼用户</a></li>
+                            <li class=""><a href="<?php echo site_url('boss/views/' . $platform . '/' . $appid . '/pay2'); ?>"><i class="fa fa-circle-o"></i> 付费人数</a></li>
+                            <li class=""><a href="<?php echo site_url('boss/views/' . $platform . '/' . $appid . '/pay3'); ?>"><i class="fa fa-circle-o"></i> 付费率</a></li>
+                            <li class=""><a href="<?php echo site_url('boss/views/' . $platform . '/' . $appid . '/pay4'); ?>"><i class="fa fa-circle-o"></i> 付费人次</a></li>
+                            <li class=""><a href="<?php echo site_url('boss/views/' . $platform . '/' . $appid . '/pay5'); ?>"><i class="fa fa-circle-o"></i> 鲸鱼用户</a></li>
                         </ul>
                     </li>
                     <li class="">
-                        <a href="<?php echo site_url('boss/views/' . $appid . '/update'); ?>">
+                        <a href="<?php echo site_url('boss/views/' . $platform . '/' . $appid . '/update'); ?>">
                             <i class="fa fa-th"></i>
                             <span>添加</span>
                             <span class="pull-right-container">
@@ -198,7 +198,7 @@
             <!-- Content Header (Page header) -->
             <section class="content-header">
                 <h1>
-                    ROI
+                    ROI&nbsp;-&nbsp;<?php echo $platform; ?>
                 </h1>
                 <ol class="breadcrumb">
                     <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -409,6 +409,7 @@
                 type: 'POST',
                 async: true,
                 data: {
+                    'platform': <?php echo "'" . $platform . "'"; ?>,
                     'appid' : <?php echo $appid; ?>,
                     'begin' : start,
                     'end' : end

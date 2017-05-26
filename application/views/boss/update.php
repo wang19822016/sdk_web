@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>BI</title>
+    <title><?php echo $appname . '&nbsp-&nbsp' . $platform; ?></title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.6 -->
@@ -31,7 +31,7 @@
     <div class="wrapper">
         <header class="main-header">
             <!-- Logo -->
-            <a href="#" class="logo">
+            <a href="<?php echo site_url('admin/channels'); ?>" class="logo">
                 <!-- mini logo for sidebar mini 50x50 pixels -->
                 <span class="logo-mini"><b>BI</b></span>
                 <!-- logo for regular state and mobile devices -->
@@ -92,7 +92,7 @@
                 <ul class="sidebar-menu">
                     <li class="header">MAIN NAVIGATION</li>
                     <li class="">
-                        <a href="<?php echo site_url('boss/views/' . $appid . '/all'); ?>">
+                        <a href="<?php echo site_url('boss/views/' . $platform . '/' . $appid . '/all'); ?>">
                             <i class="fa fa-th"></i>
                             <span>总览</span>
                             <span class="pull-right-container">
@@ -101,7 +101,7 @@
                         </a>
                     </li>
                     <li class="">
-                        <a href="<?php echo site_url('boss/views/' . $appid . '/daily'); ?>">
+                        <a href="<?php echo site_url('boss/views/' . $platform . '/' . $appid . '/daily'); ?>">
                             <i class="fa fa-th"></i>
                             <span>日报</span>
                             <span class="pull-right-container">
@@ -110,7 +110,7 @@
                         </a>
                     </li>
                     <li class="">
-                        <a href="<?php echo site_url('boss/views/' . $appid . '/channels'); ?>">
+                        <a href="<?php echo site_url('boss/views/' . $platform . '/' . $appid . '/channels'); ?>">
                             <i class="fa fa-th"></i>
                             <span>渠道</span>
                             <span class="pull-right-container">
@@ -119,7 +119,7 @@
                         </a>
                     </li>
                     <li class="">
-                        <a href="<?php echo site_url('boss/views/' . $appid . '/ltv'); ?>">
+                        <a href="<?php echo site_url('boss/views/' . $platform . '/' . $appid . '/ltv'); ?>">
                             <i class="fa fa-th"></i>
                             <span>LTV</span>
                             <span class="pull-right-container">
@@ -128,7 +128,7 @@
                         </a>
                     </li>
                     <li class="">
-                        <a href="<?php echo site_url('boss/views/' . $appid . '/roi'); ?>">
+                        <a href="<?php echo site_url('boss/views/' . $platform . '/' . $appid . '/roi'); ?>">
                             <i class="fa fa-th"></i>
                             <span>ROI</span>
                             <span class="pull-right-container">
@@ -137,7 +137,7 @@
                         </a>
                     </li>
                     <li class="">
-                        <a href="<?php echo site_url('boss/views/' . $appid . '/remain'); ?>">
+                        <a href="<?php echo site_url('boss/views/' . $platform . '/' . $appid . '/remain'); ?>">
                             <i class="fa fa-th"></i>
                             <span>留存</span>
                             <span class="pull-right-container">
@@ -154,14 +154,14 @@
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li class=""><a href="<?php echo site_url('boss/views/' . $appid . '/pay2'); ?>"><i class="fa fa-circle-o"></i> 付费人数</a></li>
-                            <li class=""><a href="<?php echo site_url('boss/views/' . $appid . '/pay3'); ?>"><i class="fa fa-circle-o"></i> 付费率</a></li>
-                            <li class=""><a href="<?php echo site_url('boss/views/' . $appid . '/pay4'); ?>"><i class="fa fa-circle-o"></i> 付费人次</a></li>
-                            <li class=""><a href="<?php echo site_url('boss/views/' . $appid . '/pay5'); ?>"><i class="fa fa-circle-o"></i> 鲸鱼用户</a></li>
+                            <li class=""><a href="<?php echo site_url('boss/views/' . $platform . '/' . $appid . '/pay2'); ?>"><i class="fa fa-circle-o"></i> 付费人数</a></li>
+                            <li class=""><a href="<?php echo site_url('boss/views/' . $platform . '/' . $appid . '/pay3'); ?>"><i class="fa fa-circle-o"></i> 付费率</a></li>
+                            <li class=""><a href="<?php echo site_url('boss/views/' . $platform . '/' . $appid . '/pay4'); ?>"><i class="fa fa-circle-o"></i> 付费人次</a></li>
+                            <li class=""><a href="<?php echo site_url('boss/views/' . $platform . '/' . $appid . '/pay5'); ?>"><i class="fa fa-circle-o"></i> 鲸鱼用户</a></li>
                         </ul>
                     </li>
                     <li class="active">
-                        <a href="<?php echo site_url('boss/views/' . $appid . '/update'); ?>">
+                        <a href="<?php echo site_url('boss/views/' . $platform . '/' . $appid . '/update'); ?>">
                             <i class="fa fa-th"></i>
                             <span>添加</span>
                             <span class="pull-right-container">
@@ -179,7 +179,7 @@
             <!-- Content Header (Page header) -->
             <section class="content-header">
                 <h1>
-                    添加渠道数据
+                    添加渠道数据&nbsp;-&nbsp;<?php echo $platform; ?>
                 </h1>
                 <ol class="breadcrumb">
                     <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -202,19 +202,24 @@
 
                             </div>
                             <!-- /.box-header -->
-                            <form role="form">
+                            <form role="form" id="upload_form">
                                 <div class="box-body">
+                                    <!--
+                                    <div class="form-group">
+                                        <label for="file_upload">上传文件</label>
+                                        <input type="file" id="file_upload" name="userfile" value="选择文件">
+                                    </div>-->
                                     <div class="form-group">
                                         <label for="showNum">展示数</label>
-                                        <input type="text" class="form-control" id="showNum" name="showNum" value="">
+                                        <input type="text" class="form-control" id="showNum" name="showNum" value="0">
                                     </div>
                                     <div class="form-group">
                                         <label for="clickNum">点击数</label>
-                                        <input type="text" class="form-control" id="clickNum" name="clickNum" value="">
+                                        <input type="text" class="form-control" id="clickNum" name="clickNum" value="0">
                                     </div>
                                     <div class="form-group">
                                         <label for="costMoney">花费</label>
-                                        <input type="text" class="form-control" id="costMoney" name="costMoney" value="">
+                                        <input type="text" class="form-control" id="costMoney" name="costMoney" value="0">
                                     </div>
                                     <div class="form-group">
                                         <label for="datepicker">日期</label>
@@ -229,9 +234,19 @@
                                         <label>渠道</label>
                                         <select class="form-control" name="channel" id="channel">
                                             <option value="Fanpage">Fanpage</option>
-                                            <option value="Facebook Ads">Facebook Ads</option>
+                                            <option value="Facebook Ads" selected>Facebook Ads</option>
                                             <option value="jjsgFanpage">jjsgFanpage</option>
                                             <option value="unityads_int">unityads_int</option>
+                                            <option value="adcolony_int">adcolony_int</option>
+                                            <option value="mobvista_int">mobvista_int</option>
+                                            <option value="ironsource_int">ironsource_int</option>
+                                            <option value="sponsorpay_int">sponsorpay_int</option>
+                                            <option value="Organic">Organic</option>
+                                            <option value="tapjoy_int">tapjoy_int</option>
+                                            <option value="applift_int">applift_int</option>
+                                            <option value="taptica_int">taptica_int</option>
+                                            <option value="vungle_int">vungle_int</option>
+                                            <option value="bluestacks_int">bluestacks_int</option>
                                         </select>
                                     </div>
                                 </div>
@@ -302,82 +317,116 @@
             $(".loading").remove();
         }
 
+        function backup() {
+
+            var now = new Date();
+            var start = now.getFullYear() + "-";
+            if (now.getMonth() < 9) {
+                start += '0' + (now.getMonth() + 1) + '-';
+            } else {
+                start += (now.getMonth() + 1) + '-';
+            }
+            if (now.getDate() < 10) {
+                start += '0' + now.getDate() + '-';
+            } else {
+                start += now.getDate();
+            }
+
+            $( "#datepicker" ).datepicker({
+                format: 'yyyy-mm-dd',
+            });
+            $( "#datepicker" ).datepicker("setDate", start);
+
+            $("#submitbtn").click(function() {
+                if ($("#showNum").val() == "" || $("#showNum").val() == null) {
+                    alert("请填写展示数");
+                    return;
+                }
+
+                if ($("#clickNum").val() == "" || $("#clickNum").val() == null) {
+                    alert("请填写点击数");
+                    return;
+                }
+
+                if ($("#costMoney").val() == "" || $("#costMoney").val() == null) {
+                    alert("请填写花费");
+                    return;
+                }
+
+                if ($("#datepicker").val() == "" || $("#datepicker").val() == null) {
+                    alert("请填写日期");
+                    return;
+                }
+                showLoading();
+                $.ajax({
+                    url : '<?php echo site_url("boss/update"); ?>',
+                    timeout: 5000,
+                    type: 'POST',
+                    async: true,
+                    data: {
+                        platform: <?php echo "'" . $platform . "'"; ?>,
+                        appId: <?php echo $appid; ?>,
+                        showNum: $("#showNum").val(),
+                        clickNum: $("#clickNum").val(),
+                        costMoney: $("#costMoney").val(),
+                        date: $("#datepicker").val(),
+                        channel: $("#channel").val()
+                    },
+                    dataType: 'text json',
+                    success:function(result) {
+                        hideLoading();
+                        if (result.result == 'ok') {
+                            alert("提交成功");
+                        } else {
+                            alert("提交失败");
+                        }
+                    },
+                    complete: function(XHR, status) {
+                        if (status == 'timeout') {
+                            alert("提交失败");
+                        }
+
+                        hideLoading();
+                    },
+                    error: function(XHR) {
+                        hideLoading();
+                        alert("error");
+                    }
+                });
+            });
+        }
+
+        function upload() {
+            var form = new FormData($("#upload_form")[0]);
+            $.ajax({
+                url: '<?php echo site_url("boss/upload"); ?>',
+                type: 'POST',
+                data: form,
+                async: true,
+                cache: false,
+                processData: false,
+                contentType: false,
+                timeout: 5000,
+                dataType: 'text json',
+                success: function(data) {
+                    hideLoading();
+                    alert("上传成功！");
+                    //alert(JSON.stringify(data));
+                },
+                error: function(e) {
+                    hideLoading();
+                    alert("上传失败！");
+                }
+            });
+        }
+
         $(document).ready(
             function () {
-                var now = new Date();
-                var start = now.getFullYear() + "-";
-                if (now.getMonth() < 9) {
-                    start += '0' + (now.getMonth() + 1) + '-';
-                } else {
-                    start += (now.getMonth() + 1) + '-';
-                }
-                if (now.getDate() < 10) {
-                    start += '0' + now.getDate() + '-';
-                } else {
-                    start += now.getDate();
-                }
-
-                $( "#datepicker" ).datepicker({
-                    format: 'yyyy-mm-dd'
-                });
-
-                $("#submitbtn").click(function() {
-                    if ($("#showNum").val() == "" || $("#showNum").val() == null) {
-                        alert("请填写展示数");
-                        return;
-                    }
-
-                    if ($("#clickNum").val() == "" || $("#clickNum").val() == null) {
-                        alert("请填写点击数");
-                        return;
-                    }
-
-                    if ($("#costMoney").val() == "" || $("#costMoney").val() == null) {
-                        alert("请填写花费");
-                        return;
-                    }
-
-                    if ($("#datepicker").val() == "" || $("#datepicker").val() == null) {
-                        alert("请填写日期");
-                        return;
-                    }
-
-                    showLoading();
-                    $.ajax({
-                        url : '<?php echo site_url("boss/update"); ?>',
-                        timeout: 5000,
-                        type: 'POST',
-                        async: true,
-                        data: {
-                            appId: <?php echo $appid; ?>,
-                            showNum: $("#showNum").val(),
-                            clickNum: $("#clickNum").val(),
-                            costMoney: $("#costMoney").val(),
-                            date: $("#datepicker").val(),
-                            channel: $("#channel").val()
-                        },
-                        dataType: 'text json',
-                        success:function(result) {
-                            hideLoading();
-                            if (result.result == 'ok') {
-                                alert("提交成功");
-                            } else {
-                                alert("提交失败");
-                            }
-                        },
-                        complete: function(XHR, status) {
-                            if (status == 'timeout') {
-                                alert("提交失败");
-                            }
-
-                            hideLoading();
-                        },
-                        error: function(XHR) {
-                        }
-                    });
-                });
+                backup();
             }
         );
+
+
     </script>
 </body>
 </html>

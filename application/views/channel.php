@@ -51,7 +51,8 @@
                             <div class="row">
                             <?php foreach ($item_array as $item):?>
                                 <div class="col-md-3">
-                                    <p><a href="<?php echo site_url('boss/views/' . $item->id . '/all'); ?>"><strong><?php echo $item->name; ?></strong></a></p>
+                                    <p><strong><?php echo $item->name; ?></strong>(<a href="<?php echo site_url('boss/views/ios/' . $item->id . '/daily'); ?>">&nbsp;ios</a>,<a href="<?php echo site_url('boss/views/android/' . $item->id . '/daily'); ?>">&nbsp;android</a>)</p>
+
                                 </div>
                             <?php endforeach; ?>
                             </div>
